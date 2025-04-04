@@ -1,0 +1,17 @@
+[user]
+	name = Gerard Balaoro
+	email = gerardbalaoro@gmail.com
+[core]
+	editor = code --wait
+[alias]
+	cm = commit
+	ca = commit --amend
+	cane = commit --amend --no-edit
+	rsu = reset @{u}
+	rbi = rebase -i
+	rbc = rebase --continue
+	rba = rebase --abort
+	co = checkout
+	st = status
+	br = branch
+	lo = log --oneline --graph --decorate
