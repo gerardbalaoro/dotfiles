@@ -1,0 +1,25 @@
+[user]
+	name = Gerard Balaoro
+	email = gerardbalaoro@gmail.com
+[core]
+	editor = code --wait
+[alias]
+	cm = commit
+	ca = commit --amend
+	cane = commit --amend --no-edit
+	rsu = reset @{u}
+	rbi = rebase -i
+	rbc = rebase --continue
+	rba = rebase --abort
+	co = checkout
+	st = status
+	br = branch
+	lo = log --oneline --graph --decorate
+{{- if eq .chezmoi.os "linux" }}
+{{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+{{- end }}
+{{- end }}
+[push]
+	autoSetupRemote = true

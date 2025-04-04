@@ -1,0 +1,12 @@
+README.md
+
+{{- if ne .chezmoi.os "windows" }}
+.chezmoiscripts/windows/**
+AppData
+Documents
+{{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
+.profile
+{{- end }}
