@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "linux" }}
+{{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[onepassword]
+    command = "op.exe"
+{{- end }}
+{{- end }}
