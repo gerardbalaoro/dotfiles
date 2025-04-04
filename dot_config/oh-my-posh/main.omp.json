@@ -13,7 +13,7 @@
     "background": "#282c34"
   },
   "terminal_background": "p:background",
-  "console_title_template": "{{ .UserName }}@{{ .HostName }}",
+  "console_title_template": "{{ .Shell }}{{ if .WSL }}.{{ .OS}}{{ end }} | {{ .UserName }}@{{ .HostName }}",
   "blocks": [
     {
       "alignment": "left",
