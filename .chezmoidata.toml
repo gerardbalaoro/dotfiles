@@ -1,0 +1,2 @@
+[omp]
+config = ".config/oh-my-posh/main.omp.json"

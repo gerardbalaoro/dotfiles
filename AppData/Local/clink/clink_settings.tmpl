@@ -118,5 +118,4 @@ match.substring = True
 
 # name: The oh-my-posh theme to use.
 # type: string
-ohmyposh.theme = {{ .chezmoi.homeDir }}\.config\oh-my-posh\main.omp.json
-
+ohmyposh.theme = {{ joinPath .chezmoi.homeDir .omp.config }}
