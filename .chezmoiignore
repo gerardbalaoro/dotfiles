@@ -4,3 +4,7 @@ README.md
 AppData
 Documents
 {{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+.profile
+{{- end }}
