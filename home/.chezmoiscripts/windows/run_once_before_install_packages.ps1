@@ -31,3 +31,4 @@ function Install-Package {
 
 Install-Package 'chrisant996.Clink'
 Install-Package 'JanDeDobbeleer.OhMyPosh'
+Install-Package '1password-cli'
