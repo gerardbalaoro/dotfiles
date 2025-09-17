@@ -22,8 +22,15 @@
         {
           "foreground": "p:green",
           "style": "plain",
-          "template": "{{ .UserName }}@{{ .HostName }} ",
+          "template": "@{{ .UserName }}",
           "type": "session"
+        },
+        {
+          "foreground": "foreground",
+          "style": "plain",
+          "template": " ",
+          "type": "text",
+          "force": true
         },
         {
           "foreground": "p:blue",
@@ -31,8 +38,15 @@
           "properties": {
             "style": "full"
           },
-          "template": "{{ .Path }} ",
+          "template": "{{ .Path }}",
           "type": "path"
+        },
+        {
+          "foreground": "foreground",
+          "style": "plain",
+          "template": " ",
+          "type": "text",
+          "force": true
         },
         {
           "properties": {
