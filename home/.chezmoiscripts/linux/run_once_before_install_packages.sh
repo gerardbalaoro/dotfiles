@@ -1,5 +1,14 @@
 #!/bin/bash
 
+is_wsl() {
+    if command -v wslinfo >/dev/null; then
+        echo "Detected Windows Subsystem Linux."
+        return 0
+    else
+        return 1
+    fi
+}
+
 install_ohmyposh() {
     if command -v oh-my-posh >/dev/null; then
         echo "Oh My Posh is already installed."
@@ -13,6 +22,11 @@ install_ohmyposh() {
 install_1password() {
     if command -v op >/dev/null; then
         echo "1Password CLI is already installed."
+        return 0
+    fi
+
+    if is_wsl; then
+        echo "Skipping 1Password CLI installation on WSL."
         return 0
     fi
 

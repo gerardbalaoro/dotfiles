@@ -16,6 +16,11 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+{{-  if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+# initialize 1Password CLI from Windows
+alias op=op.exe
+{{- end }}
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
