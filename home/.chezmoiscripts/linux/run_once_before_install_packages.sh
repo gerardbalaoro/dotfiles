@@ -9,6 +9,17 @@ is_wsl() {
     fi
 }
 
+install_zsh() {
+    if command -v zsh >/dev/null; then
+        echo "ZSH is already installed."
+        return 0
+    fi
+
+    echo "Installing ZSH"
+    sudo apt install zsh
+    chsh -s $(which zsh)
+}
+
 install_ohmyposh() {
     if command -v oh-my-posh >/dev/null; then
         echo "Oh My Posh is already installed."
@@ -44,5 +55,6 @@ install_1password() {
     sudo apt update && sudo apt install 1password-cli
 }
 
+install_zsh
 install_ohmyposh
 install_1password
