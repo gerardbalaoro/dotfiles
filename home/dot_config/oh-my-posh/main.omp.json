@@ -1,62 +1,35 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-  "palette": {
-    "black": "black",
-    "red": "red",
-    "green": "green",
-    "yellow": "yellow",
-    "blue": "blue",
-    "magenta": "magenta",
-    "cyan": "cyan",
-    "white": "white",
-    "foreground": "foreground",
-    "background": "background"
-  },
-  "terminal_background": "p:background",
-  "console_title_template": "{{ .Shell }}{{ if .WSL }}.{{ .OS}}{{ end }} | {{ .UserName }}@{{ .HostName }}",
+  "terminal_background": "background",
+  "console_title_template": "{{ .Shell }}://{{ .UserName }}@{{ .HostName }}",
   "blocks": [
     {
       "alignment": "left",
       "newline": true,
       "segments": [
         {
-          "foreground": "p:green",
+          "foreground": "green",
           "style": "plain",
-          "template": "@{{ .UserName }}",
+          "template": "{{ .UserName }}@{{ .HostName }} ",
           "type": "session"
         },
         {
-          "foreground": "foreground",
-          "style": "plain",
-          "template": " ",
-          "type": "text",
-          "force": true
-        },
-        {
-          "foreground": "p:blue",
+          "foreground": "blue",
           "style": "plain",
           "properties": {
             "style": "full"
           },
-          "template": "{{ .Path }}",
+          "template": "{{ .Path }} ",
           "type": "path"
-        },
-        {
-          "foreground": "foreground",
-          "style": "plain",
-          "template": " ",
-          "type": "text",
-          "force": true
         },
         {
           "properties": {
             "branch_icon": "",
             "fetch_status": true,
-            "fetch_stash_count": true,
             "fetch_worktree_count": true
           },
           "style": "plain",
-          "template": "<p:yellow>git</>:({{ if or (.Working.Changed) (.Staging.Changed) (gt .StashCount 0) }}<p:magenta>{{ .HEAD }}</>{{ else }}<p:green>{{ .HEAD }}</>{{ end }}{{ if (gt .Ahead 0)}}<p:cyan>{{ .BranchStatus }}</>{{ end }}{{ if (gt .Behind 0)}}<p:cyan>{{ .BranchStatus }}</>{{ end }}{{ if .Staging.Changed }} <p:green>{{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }} <p:red>{{ .Working.String }}</>{{ end }})",
+          "template": "<yellow>git</>:({{ if or (.Working.Changed) (.Staging.Changed) (gt .StashCount 0) }}<magenta>{{ .HEAD }}</>{{ else }}<green>{{ .HEAD }}</>{{ end }}{{ if (gt .Ahead 0)}}<cyan>{{ .BranchStatus }}</>{{ end }}{{ if (gt .Behind 0)}}<cyan>{{ .BranchStatus }}</>{{ end }}{{ if .Staging.Changed }} <green>{{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }} <red>{{ .Working.String }}</>{{ end }})",
           "type": "git"
         }
       ],
@@ -67,13 +40,13 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "p:foreground",
+          "foreground": "foreground",
           "properties": {
             "always_enabled": true
           },
           "style": "plain",
           "template": "> ",
-          "type": "status"
+          "type": "shell"
         }
       ],
       "type": "prompt"
