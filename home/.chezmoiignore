@@ -8,6 +8,7 @@ Documents
 
 {{- if ne .chezmoi.os "linux" }}
 .chezmoiscripts/linux/**
+.bashrc
 .profile
 .zshrc
 {{- end }}
