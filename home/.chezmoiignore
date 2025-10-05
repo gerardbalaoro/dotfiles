@@ -4,11 +4,18 @@ README.md
 .chezmoiscripts/windows/**
 AppData
 Documents
+{{- else }}
+.chezmoiscripts/unix/**
+.bashrc
+.profile
+.zshrc
 {{- end }}
 
 {{- if ne .chezmoi.os "linux" }}
 .chezmoiscripts/linux/**
-.bashrc
-.profile
-.zshrc
+{{- end }}
+
+{{- if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/darwin/**
+.config/ghostty/**
 {{- end }}

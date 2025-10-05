@@ -21,5 +21,9 @@
 	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
 {{- end }}
 {{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+[credential]
+	helper = osxkeychain
+{{- end }}
 [push]
 	autoSetupRemote = true
