@@ -36,9 +36,11 @@ if [ -d $OPENCODE_DIR ] ; then
     export PATH="$OPENCODE_DIR/bin:$PATH"
 fi
 
-{{-  if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{- if eq .chezmoi.os "linux" }}
+{{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 # initialize 1Password CLI from Windows
 alias op=op.exe
+{{- end }}
 {{- end }}
 
 # set PATH so it includes user's private bin if it exists

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+install_homebrew() {
+  if command -v brew >/dev/null 2>&1; then
+    echo "Homebrew already installed"
+    return 0
+  fi
+
+  echo "Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+{{ $brews := list
+    "age"
+    "bat"
+    "btop"
+    "coreutils"
+    "curl"
+    "dockutil"
+    "eza"
+    "fd"
+    "fzf"
+    "gdu"
+    "gh"
+    "git"
+    "git-lfs"
+    "jless"
+    "jq"
+    "ripgrep"
+    "shellcheck"
+    "tmux"
+    "uv"
+    "wget"
+    "xz" -}}
+{{ $casks := list
+  "1password"
+  "1password-cli"
+  "font-monaspace"
+  "jandedobbeleer/oh-my-posh/oh-my-posh"
+  "visual-studio-code" -}}
+
+brew bundle --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
