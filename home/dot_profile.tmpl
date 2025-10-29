@@ -8,6 +8,16 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+# add the user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# if snap is installed, add snap bin to PATH
+if command -v snap >/dev/null; then
+    PATH="/snap/bin:$PATH"
+fi
+
 # if using NVM
 export NVM_DIR="$HOME/.nvm"
 if [ -d $NVM_DIR ] ; then
@@ -42,16 +52,6 @@ fi
 alias op=op.exe
 {{- end }}
 {{- end }}
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
 
 # initialize oh-my-posh
 if command -v oh-my-posh >/dev/null; then
