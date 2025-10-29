@@ -9,6 +9,10 @@ is_wsl() {
     fi
 }
 
+install_utilities() {
+    sudo apt install -y zip unzip
+}
+
 install_zsh() {
     if command -v zsh >/dev/null; then
         echo "ZSH is already installed."
@@ -16,7 +20,7 @@ install_zsh() {
     fi
 
     echo "Installing ZSH"
-    sudo apt install zsh
+    sudo apt install -y zsh
     chsh -s $(which zsh)
 }
 
@@ -52,9 +56,10 @@ install_1password() {
     sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 && \
     curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
     sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg && \
-    sudo apt update && sudo apt install 1password-cli
+    sudo apt update && sudo apt install -y 1password-cli
 }
 
+install_utilities
 install_zsh
 install_ohmyposh
 install_1password
