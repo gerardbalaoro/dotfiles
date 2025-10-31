@@ -26,9 +26,9 @@ function Install-Script {
         [string]$uri
     )
 
-    if (Get-Command $exe -ErrorAction SilentlyContinue) {
-        Write-Output "$exe is already installed."
-    } else {
+    if (-not (Get-Command $exe -ErrorAction SilentlyContinue)) {
         powershell -ExecutionPolicy ByPass -c "irm $uri | iex"
     }
 }
+
+Export-ModuleMember -Function Install-Package, Install-Script

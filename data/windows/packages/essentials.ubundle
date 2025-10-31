@@ -1,0 +1,103 @@
+{
+  "export_version": 3,
+  "packages": [
+    {
+      "Id": "9P8LTPGCBZXD",
+      "Name": "Wintoys",
+      "Version": "Unknown",
+      "Source": "msstore",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "AgileBits.1Password",
+      "Name": "1Password",
+      "Version": "\u003E 8.11.14.24",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "AgileBits.1Password.CLI",
+      "Name": "1Password CLI",
+      "Version": "2.31.1",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "AntibodySoftware.WizTree",
+      "Name": "WizTree",
+      "Version": "4.27",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "Google.Chrome",
+      "Name": "Google Chrome",
+      "Version": "142.0.7444.60",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "JanDeDobbeleer.OhMyPosh",
+      "Name": "Oh My Posh",
+      "Version": "27.4.0.0",
+      "Source": "winget",
+      "ManagerName": "Winget",
+      "InstallationOptions": {
+        "OverridesNextLevelOpts": true,
+        "CustomInstallLocation": "%LOCALAPPDATA%\\Local\\Programs\\oh-my-posh",
+        "PostInstallCommand": "sudo powershell -NoProfile -ExecutionPolicy Bypass -Command \u0022-MpPreference -ExclusionPath $((Get-Command oh-my-posh).Source)\u0022"
+      }
+    },
+    {
+      "Id": "LesFerch.WinSetView",
+      "Name": "WinSetView",
+      "Version": "3.1.5",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "M2Team.NanaZip",
+      "Name": "NanaZip",
+      "Version": "5.0.1263.0",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "Microsoft.PowerToys",
+      "Name": "PowerToys",
+      "Version": "0.95.0",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "Microsoft.WindowsTerminal",
+      "Name": "Windows Terminal",
+      "Version": "1.23.12811.0",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "Starpine.Screenbox",
+      "Name": "Screenbox",
+      "Version": "0.16.0.0",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "chrisant996.Clink",
+      "Name": "Clink",
+      "Version": "1.8.7",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    },
+    {
+      "Id": "twpayne.chezmoi",
+      "Name": "chezmoi",
+      "Version": "2.66.1",
+      "Source": "winget",
+      "ManagerName": "Winget"
+    }
+  ],
+  "incompatible_packages_info": "Incompatible packages cannot be installed from UniGetUI, either because they came from a local source (for example Local PC) or because the package manager was unavailable. Nevertheless, they have been listed here for logging purposes.",
+  "incompatible_packages": []
+}
