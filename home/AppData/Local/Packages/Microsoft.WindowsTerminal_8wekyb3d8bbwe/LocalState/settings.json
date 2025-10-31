@@ -1,0 +1,180 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+    "keybindings": 
+    [
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "adjustIndistinguishableColors": "always",
+            "colorScheme": "Catppuccin Espresso",
+            "font": 
+            {
+                "axes": 
+                {
+                    "wght": 400
+                },
+                "cellHeight": "1.5",
+                "face": "Monaspace Neon NF, Monaspace Neon Var, Monaspace Neon",
+                "features": 
+                {
+                    "calt": 1
+                },
+                "size": 10
+            },
+            "useAcrylic": true
+        },
+        "list": 
+        [
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": true,
+                "name": "Linux",
+                "source": "Windows.Terminal.Wsl"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#1E1E1E",
+            "black": "#000000",
+            "blue": "#8AADF4",
+            "brightBlack": "#666666",
+            "brightBlue": "#8AADF4",
+            "brightCyan": "#8BD5CA",
+            "brightGreen": "#A6DA95",
+            "brightPurple": "#F5BDE6",
+            "brightRed": "#ED8796",
+            "brightWhite": "#A5ADCB",
+            "brightYellow": "#EED49F",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#8BD5CA",
+            "foreground": "#CCCCCC",
+            "green": "#A6DA95",
+            "name": "Catppuccin Espresso",
+            "purple": "#F5BDE6",
+            "red": "#ED8796",
+            "selectionBackground": "#3A3D41",
+            "white": "#E5E5E5",
+            "yellow": "#EED49F"
+        },
+        {
+            "background": "#24273A",
+            "black": "#494D64",
+            "blue": "#8AADF4",
+            "brightBlack": "#5B6078",
+            "brightBlue": "#8AADF4",
+            "brightCyan": "#8BD5CA",
+            "brightGreen": "#A6DA95",
+            "brightPurple": "#F5BDE6",
+            "brightRed": "#ED8796",
+            "brightWhite": "#A5ADCB",
+            "brightYellow": "#EED49F",
+            "cursorColor": "#F4DBD6",
+            "cyan": "#8BD5CA",
+            "foreground": "#CAD3F5",
+            "green": "#A6DA95",
+            "name": "Catppuccin Macchiato",
+            "purple": "#F5BDE6",
+            "red": "#ED8796",
+            "selectionBackground": "#5B6078",
+            "white": "#B8C0E0",
+            "yellow": "#EED49F"
+        },
+        {
+            "background": "#101216",
+            "black": "#000000",
+            "blue": "#6CA4F8",
+            "brightBlack": "#4D4D4D",
+            "brightBlue": "#6CA4F8",
+            "brightCyan": "#2B7489",
+            "brightGreen": "#56D364",
+            "brightPurple": "#DB61A2",
+            "brightRed": "#F78166",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#E3B341",
+            "cursorColor": "#C9D1D9",
+            "cyan": "#2B7489",
+            "foreground": "#8B949E",
+            "green": "#56D364",
+            "name": "GitHub Dark",
+            "purple": "#DB61A2",
+            "red": "#F78166",
+            "selectionBackground": "#3B5070",
+            "white": "#FFFFFF",
+            "yellow": "#E3B341"
+        }
+    ],
+    "showTerminalTitleInTitlebar": false,
+    "theme": "dark",
+    "themes": 
+    [
+        {
+            "name": "Catppuccin Macchiato",
+            "tab": 
+            {
+                "background": "#24273AFF",
+                "iconStyle": "default",
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "tabRow": 
+            {
+                "background": "#1E2030FF",
+                "unfocusedBackground": "#181926FF"
+            },
+            "window": 
+            {
+                "applicationTheme": "dark",
+                "experimental.rainbowFrame": false,
+                "frame": null,
+                "unfocusedFrame": null,
+                "useMica": false
+            }
+        }
+    ],
+    "useAcrylicInTabRow": true
+}
