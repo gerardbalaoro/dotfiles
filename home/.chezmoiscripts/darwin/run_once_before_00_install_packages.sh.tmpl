@@ -31,16 +31,18 @@ install_homebrew() {
     "ripgrep"
     "shellcheck"
     "tmux"
+    "unzip"
     "uv"
     "wget"
-    "xz" -}}
+    "xz"
+    "zip" -}}
 {{ $casks := list
   "1password"
   "1password-cli"
-  "font-monaspace"
   "jandedobbeleer/oh-my-posh/oh-my-posh"
   "visual-studio-code" -}}
 
+# Install packages
 brew bundle --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
