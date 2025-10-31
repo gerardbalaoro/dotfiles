@@ -3,6 +3,9 @@
 	email = gerardbalaoro@gmail.com
 [core]
 	editor = code --wait
+{{- if eq .chezmoi.os "windows" }}
+	fileMode = false
+{{- end }}
 [alias]
 	cm = commit
 	ca = commit --amend
