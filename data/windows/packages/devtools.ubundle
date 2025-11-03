@@ -18,13 +18,6 @@
       "Version": "4.49.0",
       "Source": "winget",
       "ManagerName": "Winget"
-    },
-    {
-      "Id": "Microsoft.VisualStudioCode",
-      "Name": "Microsoft Visual Studio Code",
-      "Version": "1.105.1",
-      "Source": "winget",
-      "ManagerName": "Winget"
     }
   ],
   "incompatible_packages_info": "Incompatible packages cannot be installed from UniGetUI, either because they came from a local source (for example Local PC) or because the package manager was unavailable. Nevertheless, they have been listed here for logging purposes.",
