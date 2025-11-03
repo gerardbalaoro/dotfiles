@@ -178,8 +178,8 @@ function Install-Bundle {
     $results = ""
     
     foreach ($pkg in $packages) {
-        Write-Host ""
-        Write-Host "Processing: $($pkg.Name)" -ForegroundColor Cyan
+        Write-Host ("=" * 60)
+        Write-Host "$($pkg.Name)" -ForegroundColor Cyan
         Write-Host ("=" * 60)
         
         # Pre-install command
