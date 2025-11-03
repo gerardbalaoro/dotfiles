@@ -20,13 +20,6 @@
       "ManagerName": "Winget"
     },
     {
-      "Id": "Git.Git",
-      "Name": "Git",
-      "Version": "2.51.2",
-      "Source": "winget",
-      "ManagerName": "Winget"
-    },
-    {
       "Id": "Microsoft.VisualStudioCode",
       "Name": "Microsoft Visual Studio Code",
       "Version": "1.105.1",
