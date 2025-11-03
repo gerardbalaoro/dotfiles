@@ -17,7 +17,7 @@ Initialize the `dotfiles` local repository.
 Ensure that your GitHub authentication credentials are properly configured.
 
 ```sh
-chezmoi init https://github.com/gerardbalaoro/dotfiles.git
+chezmoi init gerardbalaoro --git-lfs
 ```
 
 Apply the dotfiles to your machine

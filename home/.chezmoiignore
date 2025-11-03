@@ -19,3 +19,7 @@ Documents
 .chezmoiscripts/darwin/**
 .config/ghostty/**
 {{- end }}
+
+{{- if not (has "dev" .presets) }}
+.chezmoiscripts/**/*devtools*
+{{- end }}
