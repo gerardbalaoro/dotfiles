@@ -45,7 +45,7 @@
       "InstallationOptions": {
         "OverridesNextLevelOpts": true,
         "CustomInstallLocation": "%LOCALAPPDATA%\\Local\\Programs\\oh-my-posh",
-        "PostInstallCommand": "sudo powershell -NoProfile -ExecutionPolicy Bypass -Command \u0022-MpPreference -ExclusionPath $((Get-Command oh-my-posh).Source)\u0022"
+        "PostInstallCommand": "sudo powershell -NoProfile -ExecutionPolicy Bypass -Command \u0022Add-MpPreference -ExclusionPath $((Get-Command oh-my-posh).Source)\u0022"
       }
     },
     {
