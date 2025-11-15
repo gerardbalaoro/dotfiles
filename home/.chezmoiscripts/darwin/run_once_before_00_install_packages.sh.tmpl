@@ -42,8 +42,30 @@ install_homebrew() {
   "jandedobbeleer/oh-my-posh/oh-my-posh"
   "visual-studio-code" -}}
 
-# Install packages
-brew bundle --file=/dev/stdin <<EOF
+# Ensure Homebrew is installed
+install_homebrew
+
+# Ensure Homebrew runs as the correct user
+if command -v brew >/dev/null; then
+  BREW_PATH=$(command -v brew)
+
+  if [ -n "$BREW_PATH" ] && [ -f "$BREW_PATH" ]; then
+    eval "$($BREW_PATH shellenv)"
+
+    BREW_PREFIX=$($BREW_PATH --prefix)
+    BREW_USER=$(stat -f %Su "$BREW_PREFIX")
+
+    if [ -n "$BREW_PREFIX" ] && [ "$BREW_USER" != "$USER" ]; then
+      brew() {
+        echo "Running brew as $BREW_USER"
+        sudo -Hu "$BREW_USER" "$BREW_PATH" "$@";
+      }
+    fi
+  fi
+fi
+
+# Create Brewfile
+cat <<EOF > "$HOME/Brewfile"
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
@@ -51,3 +73,6 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end -}}
 EOF
+
+# Install packages
+brew bundle --file="$HOME/Brewfile"
