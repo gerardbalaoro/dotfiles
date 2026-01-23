@@ -18,6 +18,8 @@
 	st = status
 	br = branch
 	lo = log --oneline --graph --decorate
+	stu = stash --include-untracked
+	stp = stash pop
 {{- if eq .chezmoi.os "linux" }}
 {{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [credential]
