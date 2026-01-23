@@ -1,0 +1,7 @@
+[tools]
+bun = "latest"
+jq = "latest"
+node = "24"
+opencode = "latest"
+pnpm = "latest"
+uv = "latest"

@@ -8,9 +8,19 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+# determine the shell type
+if [ -n "$BASH_VERSION" ]; then
+    export SHELL_TYPE="bash"
+elif [ -n "$ZSH_VERSION" ]; then
+    export SHELL_TYPE="zsh"
+fi
+
 # add the user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 
 # if snap is installed, add snap bin to PATH
@@ -18,33 +28,20 @@ if command -v snap >/dev/null; then
     PATH="/snap/bin:$PATH"
 fi
 
-# if using NVM
-export NVM_DIR="$HOME/.nvm"
-if [ -d $NVM_DIR ] ; then
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# if using mise
+if command -v mise >/dev/null; then
+    eval "$(mise activate $SHELL_TYPE)"
 fi
 
-# if using PNPM
-export PNPM_HOME="$HOME/.local/share/pnpm"
-if [ -d $PNPM_HOME ] ; then
-    case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-    esac
+# if using bun, add bun bin to PATH
+if command -v bun >/dev/null; then
+    PATH="$HOME/.bun/bin:$PATH"
 fi
 
-# if using Bun
-export BUN_INSTALL="$HOME/.bun"
-if [ -d $BUN_INSTALL ] ; then
-    export PATH="$BUN_INSTALL/bin:$PATH"
-    source <(SHELL=$(ps -p $$ -o comm=) bun completions "$(mktemp -d)" | cat)
-fi
-
-# if using OpenCode
-export OPENCODE_DIR="$HOME/.opencode"
-if [ -d $OPENCODE_DIR ] ; then
-    export PATH="$OPENCODE_DIR/bin:$PATH"
+# if using pnpm, add pnpm bin to PATH
+if command -v pnpm >/dev/null; then
+    export PNPM_HOME="$HOME/.local/share/pnpm"
+    PATH="$PNPM_HOME:$PATH"
 fi
 
 {{- if eq .chezmoi.os "linux" }}
@@ -80,12 +77,7 @@ fi
 # initialize oh-my-posh
 if command -v oh-my-posh >/dev/null; then
     OH_MY_POSH_CONFIG="~/.config/oh-my-posh/main.omp.json"
-    if [ -n "$BASH_VERSION" ]; then
-        eval "$(oh-my-posh init bash --config $OH_MY_POSH_CONFIG)"
-    fi
-    if [ -n "$ZSH_VERSION" ]; then
-        eval "$(oh-my-posh init zsh --config $OH_MY_POSH_CONFIG)"
-    fi
+    eval "$(oh-my-posh init $SHELL_TYPE --config $OH_MY_POSH_CONFIG)"
 fi
 
 # visual studio code
