@@ -10,13 +10,15 @@ function Get-Package {
 function Install-Package {
     param (
         [string]$id
+        [string]$location = $null
     )
 
-    if (Get-Package $id) {
-        Write-Output "$id is already installed."
-    } else {
-        Write-Output "Installing $id..."
-        winget install --id=$id -e --silent --accept-package-agreements --accept-source-agreements
+    if (-not (Get-Package $id)) {
+        if ($location) {
+            winget install --id=$id -e --silent --accept-package-agreements --accept-source-agreements --location=$location
+        } else {
+            winget install --id=$id -e --silent --accept-package-agreements --accept-source-agreements
+        }
     }
 }
 
