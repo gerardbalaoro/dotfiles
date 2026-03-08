@@ -17,31 +17,48 @@ fi
 
 # add the user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# add opencode bin to PATH
+if [ -d "$HOME/.opencode/bin" ] ; then
+    export PATH="$HOME/.opencode/bin:$PATH"
 fi
 
 # if snap is installed, add snap bin to PATH
 if command -v snap >/dev/null; then
-    PATH="/snap/bin:$PATH"
+    export PATH="/snap/bin:$PATH"
 fi
 
-# if using mise
+# if mise is installed, activate
 if command -v mise >/dev/null; then
     eval "$(mise activate $SHELL_TYPE)"
 fi
 
-# if using bun, add bun bin to PATH
+# if using bun, add to path and initialize completions
 if command -v bun >/dev/null; then
-    PATH="$HOME/.bun/bin:$PATH"
+    export PATH="$HOME/.bun/bin:$PATH"
+    source <(SHELL=$SHELL_TYPE bun completions)
 fi
 
-# if using pnpm, add pnpm bin to PATH
+# if using pnpm, add to path and initialize completions
 if command -v pnpm >/dev/null; then
     export PNPM_HOME="$HOME/.local/share/pnpm"
-    PATH="$PNPM_HOME:$PATH"
+    export PATH="$PNPM_HOME:$PATH"
+    source <(pnpm completion $SHELL_TYPE)
+fi
+
+# if using fzf, initialize completions
+if command -v fzf >/dev/null; then
+    source <(fzf --$SHELL_TYPE)
+fi
+
+# if using zoxide, initialize
+if command -v zoxide >/dev/null; then
+    source <(zoxide init $SHELL_TYPE)
 fi
 
 {{- if eq .chezmoi.os "linux" }}
