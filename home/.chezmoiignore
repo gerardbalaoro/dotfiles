@@ -21,6 +21,6 @@ Documents
 {{- end }}
 
 {{- if not (has "dev" .presets) }}
-.chezmoiscripts/**/*devtools*
+.chezmoiscripts/**/*_dev_*
 .config/mise/**
 {{- end }}
