@@ -1,27 +1,15 @@
-# 💻 Gerard's dotfiles
+# Gerard's dotfiles
 
 My personal configuration files managed by [chezmoi](https://www.chezmoi.io/).
 
 ## Installation
 
-Set up [chezmoi](https://www.chezmoi.io/) to your machine.
-Follow the [installation instructions](https://www.chezmoi.io/install/) from the documentation.
-
-- **Windows (via Winget)**: `winget install twpayne.chezmoi`
-- **macOS (via Homebrew)**: `brew install chezmoi`
-- **Linux**: `sh -c "$(curl -fsLS get.chezmoi.io)"`
-
-## Usage
-
-Initialize the `dotfiles` local repository.
-Ensure that your GitHub authentication credentials are properly configured.
-
+**Unix (macOS/Linux)**
 ```sh
-chezmoi init gerardbalaoro --git-lfs
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply gerardbalaoro
 ```
 
-Apply the dotfiles to your machine
-
-```sh
-chezmoi apply -v
+**Windows (PowerShell)**
+```powershell
+irm https://get.chezmoi.io/ps1 | powershell -c "& { $(iex ($input | Out-String)) } -- init --apply gerardbalaoro"
 ```
