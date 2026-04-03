@@ -11,16 +11,6 @@ if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
-if (-not (Get-Command "mise" -ErrorAction SilentlyContinue)) {
-    Write-Output "Installing Mise"
-    Install-Package -id jdx.mise
-}
-
-if (-not (Get-Command "clink" -ErrorAction SilentlyContinue)) {
-    Write-Output "Installing Clink"
-    Install-Package -id chrisant996.Clink
-}
-
 if (-not (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     $InstallLocation = "$env:LOCALAPPDATA\Programs\oh-my-posh"
 
@@ -31,10 +21,6 @@ if (-not (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
 
 Install-Package -id AgileBits.1Password
 Install-Package -id AgileBits.1Password.CLI
-
-Install-Package -id Git.Git
-Install-Package -id Microsoft.WindowsTerminal
-Install-Package -id Microsoft.VisualStudioCode
 
 Install-Package -id M2Team.NanaZip
 Install-Package -id Starpine.Screenbox

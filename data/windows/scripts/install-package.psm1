@@ -9,7 +9,7 @@ function Get-Package {
 
 function Install-Package {
     param (
-        [string]$id
+        [string]$id,
         [string]$location = $null
     )
 
