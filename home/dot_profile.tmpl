@@ -8,6 +8,13 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+# load user environment variables
+if [ -f "$HOME/.env" ]; then
+    set -a
+    . "$HOME/.env"
+    set +a
+fi
+
 # determine the shell type
 if [ -n "$BASH_VERSION" ]; then
     export SHELL_TYPE="bash"
