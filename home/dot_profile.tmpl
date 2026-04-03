@@ -51,6 +51,11 @@ if command -v pnpm >/dev/null; then
     source <(pnpm completion $SHELL_TYPE)
 fi
 
+# if using vite+, initialize environment
+if [ -d "$HOME/.vite-plus" ] ; then
+    . "$HOME/.vite-plus/env"
+fi
+
 # if using fzf, initialize completions
 if command -v fzf >/dev/null; then
     source <(fzf --$SHELL_TYPE)
