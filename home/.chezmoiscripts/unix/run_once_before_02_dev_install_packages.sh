@@ -10,4 +10,15 @@ install_mise() {
   fi
 }
 
+install_vite_plus() {
+  if [ -d "$HOME/.vite-plus" ]; then
+    echo "Vite+ is already installed."
+    return 0
+  else
+    echo "Installing Vite+"
+    curl -fsSL https://vite.plus | VP_NODE_MANAGER=no bash
+  fi
+}
+
 install_mise
+install_vite_plus
