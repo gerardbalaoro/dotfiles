@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  BREW_PATH=/opt/homebrew/bin/brew
+elif [[ -x /usr/local/bin/brew ]]; then
+  BREW_PATH=/usr/local/bin/brew
+elif BREW_PATH="$(command -v brew 2>/dev/null)"; then
+  :
+else
+  echo "Homebrew not found" >&2
+  exit 1
+fi
+
+BREW_PREFIX="$($BREW_PATH --prefix)"
+CURRENT_USER="$(id -un)"
+
+if [[ -n "$BREW_PREFIX" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    BREW_USER="$(stat -f %Su "$BREW_PREFIX")"
+  else
+    BREW_USER="$(stat -c %U "$BREW_PREFIX")"
+  fi
+
+  if [[ -n "$BREW_USER" && "$BREW_USER" != "$CURRENT_USER" ]]; then
+    echo "Running brew as $BREW_USER" >&2
+    exec sudo -Hu "$BREW_USER" "$BREW_PATH" "$@"
+  fi
+fi
+
+exec "$BREW_PATH" "$@"
