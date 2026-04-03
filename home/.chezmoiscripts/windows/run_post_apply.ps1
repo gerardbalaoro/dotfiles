@@ -1,2 +1,4 @@
-# Install mise tools
-mise install
+# Install mise packages
+if (Get-Command "mise" -ErrorAction SilentlyContinue) {
+    mise install
+}

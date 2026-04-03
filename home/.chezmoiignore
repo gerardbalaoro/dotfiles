@@ -6,6 +6,7 @@ AppData
 Documents
 {{- else }}
 .chezmoiscripts/unix/**
+.local/bin/**
 .bashrc
 .profile
 .zshrc
