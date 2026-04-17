@@ -48,14 +48,26 @@ fi
 # if using bun, add to path and initialize completions
 if command -v bun >/dev/null; then
     export PATH="$HOME/.bun/bin:$PATH"
-    source <(SHELL=$SHELL_TYPE bun completions)
+    _BUN_COMP="$HOME/.cache/shell/bun-completions.$SHELL_TYPE.sh"
+    if [ ! -f "$_BUN_COMP" ]; then
+        mkdir -p "$HOME/.cache/shell"
+        SHELL=$SHELL_TYPE bun completions > "$_BUN_COMP" 2>/dev/null || rm -f "$_BUN_COMP"
+    fi
+    [ -f "$_BUN_COMP" ] && . "$_BUN_COMP"
+    unset _BUN_COMP
 fi
 
 # if using pnpm, add to path and initialize completions
 if command -v pnpm >/dev/null; then
     export PNPM_HOME="$HOME/.local/share/pnpm"
     export PATH="$PNPM_HOME:$PATH"
-    source <(pnpm completion $SHELL_TYPE)
+    _PNPM_COMP="$HOME/.cache/shell/pnpm-completions.$SHELL_TYPE.sh"
+    if [ ! -f "$_PNPM_COMP" ]; then
+        mkdir -p "$HOME/.cache/shell"
+        pnpm completion $SHELL_TYPE > "$_PNPM_COMP" 2>/dev/null || rm -f "$_PNPM_COMP"
+    fi
+    [ -f "$_PNPM_COMP" ] && . "$_PNPM_COMP"
+    unset _PNPM_COMP
 fi
 
 # if using vite+, initialize environment
@@ -65,12 +77,24 @@ fi
 
 # if using fzf, initialize completions
 if command -v fzf >/dev/null; then
-    source <(fzf --$SHELL_TYPE)
+    _FZF_INIT="$HOME/.cache/shell/fzf-init.$SHELL_TYPE.sh"
+    if [ ! -f "$_FZF_INIT" ]; then
+        mkdir -p "$HOME/.cache/shell"
+        fzf --$SHELL_TYPE > "$_FZF_INIT" 2>/dev/null || rm -f "$_FZF_INIT"
+    fi
+    [ -f "$_FZF_INIT" ] && . "$_FZF_INIT"
+    unset _FZF_INIT
 fi
 
 # if using zoxide, initialize
 if command -v zoxide >/dev/null; then
-    source <(zoxide init $SHELL_TYPE)
+    _ZOXIDE_INIT="$HOME/.cache/shell/zoxide-init.$SHELL_TYPE.sh"
+    if [ ! -f "$_ZOXIDE_INIT" ]; then
+        mkdir -p "$HOME/.cache/shell"
+        zoxide init $SHELL_TYPE > "$_ZOXIDE_INIT" 2>/dev/null || rm -f "$_ZOXIDE_INIT"
+    fi
+    [ -f "$_ZOXIDE_INIT" ] && . "$_ZOXIDE_INIT"
+    unset _ZOXIDE_INIT
 fi
 
 {{- if eq .chezmoi.os "linux" }}
@@ -81,8 +105,6 @@ alias op=op.exe
 {{- end }}
 {{- end }}
 
-{{- if eq .chezmoi.os "darwin" }}
-
 # initialize Homebrew
 if command -v brew >/dev/null; then
     eval "$(brew shellenv)"
@@ -90,7 +112,6 @@ if command -v brew >/dev/null; then
         brew() { "$HOME/.local/bin/hb" "$@"; }
     fi
 fi
-{{- end }}
 
 # initialize oh-my-posh
 if command -v oh-my-posh >/dev/null; then
