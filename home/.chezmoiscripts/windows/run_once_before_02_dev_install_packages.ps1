@@ -11,6 +11,7 @@ if (-not (Get-Command "clink" -ErrorAction SilentlyContinue)) {
 }
 
 Install-Package -id Git.Git
+Install-Package -id GitHub.CLI
 Install-Package -id Microsoft.WindowsTerminal
 Install-Package -id Microsoft.VisualStudioCode
 
