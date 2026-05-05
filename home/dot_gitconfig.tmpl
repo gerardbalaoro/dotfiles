@@ -6,6 +6,8 @@
 {{- if eq .chezmoi.os "windows" }}
 	fileMode = false
 {{- end }}
+[init]
+    defaultBranchName = main
 [alias]
 	cm = commit
 	ca = commit --amend
@@ -14,12 +16,14 @@
 	rbi = rebase -i
 	rbc = rebase --continue
 	rba = rebase --abort
+	rbs = rebase --autosquash
 	co = checkout
 	st = status
 	br = branch
 	lo = log --oneline --graph --decorate
 	stu = stash --include-untracked
 	stp = stash pop
+	psf = push --force-with-lease
 {{- if eq .chezmoi.os "linux" }}
 {{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [credential]
