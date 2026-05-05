@@ -1,0 +1,8 @@
+[tools]
+bun = "latest"
+node = "latest"
+pnpm = "latest"
+
+[shell_alias]
+bunx = "bun x"
+pnpx = "pnpm dlx"

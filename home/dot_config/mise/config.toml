@@ -1,8 +1,0 @@
-[tools]
-bun = "latest"
-fzf = "latest"
-node = "latest"
-pnpm = "latest"
-python = "3.14"
-uv = "latest"
-jq = "latest"
