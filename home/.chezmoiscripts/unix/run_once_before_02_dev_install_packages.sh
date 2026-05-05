@@ -6,7 +6,7 @@ install_mise() {
     return 0
   else
     echo "Installing Mise"
-    curl https://mise.run | sh
+    curl https://mise.run | sudo env MISE_INSTALL_PATH=/usr/local/bin/mise sh
   fi
 }
 
