@@ -1,0 +1,2 @@
+[tools]
+uv = { version = "latest", post_install = "uv python install --default" }
