@@ -60,7 +60,7 @@ fi
 # if using pnpm, add to path and initialize completions
 if command -v pnpm >/dev/null; then
     export PNPM_HOME="$HOME/.local/share/pnpm"
-    export PATH="$PNPM_HOME:$PATH"
+    export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH"
     _PNPM_COMP="$HOME/.cache/shell/pnpm-completions.$SHELL_TYPE.sh"
     if [ ! -f "$_PNPM_COMP" ]; then
         mkdir -p "$HOME/.cache/shell"
