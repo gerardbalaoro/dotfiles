@@ -1,10 +1,26 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [],
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "sendInput",
+                "input": "\n"
+            },
+            "id": "User.sendNewLineInput"
+        }
+    ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "disabledProfileSources": 
+    [
+        "Windows.Terminal.Azure",
+        "Windows.Terminal.VisualStudio",
+        "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+    ],
     "keybindings": 
     [
         {
@@ -18,6 +34,10 @@
         {
             "id": "Terminal.DuplicatePaneAuto",
             "keys": "alt+shift+d"
+        },
+        {
+            "id": "User.sendNewLineInput",
+            "keys": "shift+enter"
         }
     ],
     "newTabMenu": 
@@ -31,99 +51,59 @@
         "defaults": 
         {
             "adjustIndistinguishableColors": "always",
-            "colorScheme": "Catppuccin Espresso",
+            "colorScheme": "GitHub Dark",
             "font": 
             {
-                "axes": 
-                {
-                    "wght": 400
-                },
-                "cellHeight": "1.5",
-                "face": "Monaspace Neon NF, Monaspace Neon Var, Monaspace Neon",
-                "features": 
-                {
-                    "calt": 1
-                },
-                "size": 10
+                "face": "IoskeleyMono Nerd Font",
+                "size": 10.5
             },
             "useAcrylic": true
         },
         "list": 
         [
             {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
-                "name": "Command Prompt"
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
+                "hidden": true,
                 "name": "Windows PowerShell"
             },
             {
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": true,
+                "name": "Command Prompt"
             },
             {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Linux",
-                "source": "Windows.Terminal.Wsl"
+                "commandline": "\"C:\\Program Files\\Git\\bin\\bash.exe\" --login -i",
+                "guid": "{25b957fb-5b2f-4684-92ce-51f5e6144800}",
+                "hidden": false,
+                "icon": "C:\\Program Files\\Git\\git-bash.exe",
+                "name": "Git Bash",
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{f1875135-3802-512e-aaef-723274b41fc3}",
+                "hidden": false,
+                "name": "Fedora",
+                "source": "Microsoft.WSL"
+            },
+            {
+                "commandline": "ssh gerard@lab.sprbrv.com",
+                "guid": "{f3b33cd6-979b-4c11-8f07-a912b89a26f3}",
+                "hidden": false,
+                "icon": "\ue753",
+                "name": "Lab"
             }
         ]
     },
     "schemes": 
     [
-        {
-            "background": "#1E1E1E",
-            "black": "#000000",
-            "blue": "#8AADF4",
-            "brightBlack": "#666666",
-            "brightBlue": "#8AADF4",
-            "brightCyan": "#8BD5CA",
-            "brightGreen": "#A6DA95",
-            "brightPurple": "#F5BDE6",
-            "brightRed": "#ED8796",
-            "brightWhite": "#A5ADCB",
-            "brightYellow": "#EED49F",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#8BD5CA",
-            "foreground": "#CCCCCC",
-            "green": "#A6DA95",
-            "name": "Catppuccin Espresso",
-            "purple": "#F5BDE6",
-            "red": "#ED8796",
-            "selectionBackground": "#3A3D41",
-            "white": "#E5E5E5",
-            "yellow": "#EED49F"
-        },
-        {
-            "background": "#24273A",
-            "black": "#494D64",
-            "blue": "#8AADF4",
-            "brightBlack": "#5B6078",
-            "brightBlue": "#8AADF4",
-            "brightCyan": "#8BD5CA",
-            "brightGreen": "#A6DA95",
-            "brightPurple": "#F5BDE6",
-            "brightRed": "#ED8796",
-            "brightWhite": "#A5ADCB",
-            "brightYellow": "#EED49F",
-            "cursorColor": "#F4DBD6",
-            "cyan": "#8BD5CA",
-            "foreground": "#CAD3F5",
-            "green": "#A6DA95",
-            "name": "Catppuccin Macchiato",
-            "purple": "#F5BDE6",
-            "red": "#ED8796",
-            "selectionBackground": "#5B6078",
-            "white": "#B8C0E0",
-            "yellow": "#EED49F"
-        },
         {
             "background": "#101216",
             "black": "#000000",
@@ -148,33 +128,7 @@
             "yellow": "#E3B341"
         }
     ],
-    "showTerminalTitleInTitlebar": false,
     "theme": "dark",
-    "themes": 
-    [
-        {
-            "name": "Catppuccin Macchiato",
-            "tab": 
-            {
-                "background": "#24273AFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#1E2030FF",
-                "unfocusedBackground": "#181926FF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        }
-    ],
+    "themes": [],
     "useAcrylicInTabRow": true
 }
