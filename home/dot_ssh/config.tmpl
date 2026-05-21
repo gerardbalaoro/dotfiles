@@ -8,10 +8,16 @@ Host *
 Host github.com
   User git
 
-Host Hyperion
-  ForwardAgent yes
-  User Gerard
+Host github.com
+  User git
 
-Host Helios
-  ForwardAgent yes
-  User Gerard
+Host lab
+  HostName lab.sprbrv.com
+  User gerard
+
+{{- if eq .chezmoi.os "windows" }}
+Host wsl
+  HostName 127.0.0.1
+  Port 23
+  User gerard
+{{- end }}
