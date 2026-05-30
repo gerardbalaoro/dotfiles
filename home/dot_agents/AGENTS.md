@@ -1,7 +1,9 @@
 # Gerard's Agent Instructions
 
-Big walls of text are hard to read, break down prose and concepts
-into digestible parts using semantic formatting.
+Write in digestible sections. Avoid large walls of text.
 
-Use parallel subagents and parallel tool calls if permitted
-on tasks than can be safely executed in parallel.
+Use subagents when they help reduce context or parallelize work.
+
+Delegate exploration and research by default. The primary agent should receive findings, conclusions, relevant files, and caveats—not the full investigation trail.
+
+Handle quick, obvious tasks directly. Do not delegate just to delegate.
