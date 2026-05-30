@@ -1,6 +1,6 @@
 [tools]
 bun = "latest"
-node = "latest"
+node = "24"
 pnpm = "latest"
 
 [shell_alias]
