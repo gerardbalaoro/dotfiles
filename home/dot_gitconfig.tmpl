@@ -3,11 +3,11 @@
 	email = gerardbalaoro@gmail.com
 [core]
 	editor = code --wait
-[sequence]
-	editor = code --wait
 {{- if eq .chezmoi.os "windows" }}
 	fileMode = false
 {{- end }}
+[sequence]
+	editor = code --wait
 [init]
     defaultBranchName = main
 [alias]
