@@ -2,6 +2,10 @@
 winget install -e Anthropic.Claude
 winget install -e Anthropic.ClaudeCode
 
+# Install Codex
+winget install -e 9PLM9XGG6VKS --source msstore
+winget install -e OpenAI.Codex
+
 # Install GitHub Copilot
 winget install -e GitHub.Copilot
 
