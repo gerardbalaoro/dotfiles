@@ -6,4 +6,4 @@ opencode = { version = "latest", os = ["linux", "macos"] }
 
 [shell_alias]
 cc = "claude --allow-dangerously-skip-permissions --permission-mode auto --enable-auto-mode"
-cx = "codex --ask-for-approval neven --sandbox danger-full-access"
+cx = "codex --ask-for-approval never --sandbox danger-full-access"
