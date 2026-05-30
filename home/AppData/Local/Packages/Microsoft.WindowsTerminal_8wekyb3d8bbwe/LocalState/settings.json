@@ -54,7 +54,11 @@
             "colorScheme": "Dimidium",
             "font": 
             {
-                "face": "CommitMono",
+                "face": "CommitMono Nerd Font",
+                "features": 
+                {
+                    "calt": 1
+                },
                 "size": 10,
                 "weight": "normal"
             },

@@ -2,7 +2,7 @@ if (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue) {
     chezmoi git lfs install
     chezmoi git lfs pull
 
-    $fonts = @("CommitMono")
+    $fonts = @("CommitMono", "CommitMono_NerdFont")
     foreach ($font in $fonts) {
         $fontPath = Join-Path $env:CHEZMOI_WORKING_TREE "data/fonts/$font.zip"
         if (Test-Path $fontPath) {
