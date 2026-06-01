@@ -8,14 +8,13 @@ Host *
 Host github.com
   User git
 
-Host github.com
-  User git
+Host hyperion
+  User Gerard
 
 Host lab
-  HostName lab.sprbrv.com
   User gerard
-
 {{- if eq .chezmoi.os "windows" }}
+
 Host wsl
   HostName 127.0.0.1
   Port 23

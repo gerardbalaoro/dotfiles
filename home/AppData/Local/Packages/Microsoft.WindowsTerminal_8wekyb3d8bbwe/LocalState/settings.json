@@ -99,7 +99,7 @@
                 "source": "Microsoft.WSL"
             },
             {
-                "commandline": "ssh gerard@lab.sprbrv.com",
+                "commandline": "ssh lab",
                 "guid": "{f3b33cd6-979b-4c11-8f07-a912b89a26f3}",
                 "hidden": false,
                 "icon": "\ue753",
