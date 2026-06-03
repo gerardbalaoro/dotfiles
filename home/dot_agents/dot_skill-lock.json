@@ -84,7 +84,7 @@
       "skillFolderHash": "c91bdc5d02d42ed88a3082a8fa83338895b55bd4",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-05-30T07:58:34.497Z",
-      "updatedAt": "2026-05-30T07:58:34.497Z"
+      "updatedAt": "2026-06-02T09:21:35.387Z"
     },
     "to-issues": {
       "source": "mattpocock/skills",
@@ -101,10 +101,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/to-prd/SKILL.md",
-      "skillFolderHash": "d6eff3e99a325d2d9c2acbe31b4d76fa5340a154",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "fb4503f54bc618da08df2fd74109fbe57e4d8150",
       "installedAt": "2026-05-30T07:58:34.510Z",
-      "updatedAt": "2026-05-30T07:58:34.510Z"
+      "updatedAt": "2026-06-02T09:20:24.918Z"
     },
     "zoom-out": {
       "source": "mattpocock/skills",
@@ -154,6 +153,43 @@
       "skillFolderHash": "5150806a2faa8d5528fec7536cdbfa7818e001b4",
       "installedAt": "2026-05-30T08:15:00.196Z",
       "updatedAt": "2026-05-30T08:17:48.495Z"
+    },
+    "setup-matt-pocock-skills": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
+      "skillFolderHash": "77638955bebe492948244f1338e54ca1a9445c29",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-02T09:21:35.392Z",
+      "updatedAt": "2026-06-02T15:15:16.419Z"
+    },
+    "ubiquitous-language": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/deprecated/ubiquitous-language/SKILL.md",
+      "skillFolderHash": "483fe10b01bed81b7eba7ee26df3f1bef9540c88",
+      "installedAt": "2026-06-02T09:21:35.395Z",
+      "updatedAt": "2026-06-02T09:21:35.395Z"
+    },
+    "thermo-nuclear-code-quality-review": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cursor/plugins.git",
+      "skillPath": "cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "skillFolderHash": "d9c8935dd560b3b6f5941247d04a1843f8c7cc35",
+      "installedAt": "2026-06-03T02:30:19.973Z",
+      "updatedAt": "2026-06-03T02:30:19.973Z"
+    },
+    "thermo-nuclear-review": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cursor/plugins.git",
+      "skillPath": "thermos/skills/thermo-nuclear-review/SKILL.md",
+      "skillFolderHash": "b222e50771b6bc6f7d2b926b86da2342f160bb79",
+      "installedAt": "2026-06-03T02:30:43.521Z",
+      "updatedAt": "2026-06-03T02:30:43.521Z"
     }
   },
   "dismissed": {

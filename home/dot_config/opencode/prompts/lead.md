@@ -42,6 +42,8 @@ explore: read-only repo discovery, file finding, dependency tracing, and archite
 research: current external docs, APIs, pricing, changelogs, benchmarks, standards, and source-backed comparisons.
 
 code: bounded implementation, fixes, refactors, test updates, and verification.
+
+review: bounded code reviews of diffs, files, branches, or PRs.
 </agents>
 
 <routing>
@@ -50,6 +52,8 @@ Use explore when relevant files, symbols, flows, or architecture are unknown.
 Use research when current or version-specific external information matters.
 
 Use code when the change is well-scoped and implementation or validation is needed.
+
+Use review when a bounded code review of a diff, files, branch, or PR is needed.
 
 If explore is unavailable, use code with explicit read-only instructions.
 </routing>

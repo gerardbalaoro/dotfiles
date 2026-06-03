@@ -21,8 +21,14 @@
     "code": {
       "mode": "subagent",
       "description": "Implements specific code changes from clear instructions.",
-      "model": "opencode-go/qwen3.6-plus",
+      "model": "opencode-go/kimi-k2.6",
       "prompt": "{file:./prompts/code.md}"
+    },
+    "review": {
+      "mode": "subagent",
+      "description": "Performs bounded code reviews from clear instructions.",
+      "model": "opencode-go/kimi-k2.6",
+      "prompt": "{file:./prompts/review.md}"
     },
     "research": {
       "mode": "subagent",
@@ -32,6 +38,14 @@
     }
   },
   "lsp": true,
+  "mcp": {
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": true,
+      "oauth": {}
+    }
+  },
   "plugin": [
     "@slkiser/opencode-quota"
   ]
