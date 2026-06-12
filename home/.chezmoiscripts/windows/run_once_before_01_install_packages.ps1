@@ -11,6 +11,11 @@ if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
+if (-not (Get-Command "clink" -ErrorAction SilentlyContinue)) {
+    Write-Output "Installing Clink"
+    Install-Package -id chrisant996.Clink
+}
+
 if (-not (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     $InstallLocation = "$env:LOCALAPPDATA\Programs\oh-my-posh"
 
