@@ -1,53 +1,53 @@
 # load user environment variables
 if [ -f "$HOME/.env" ]; then
-	set -a
-	. "$HOME/.env"
-	set +a
+  set -a
+  . "$HOME/.env"
+  set +a
 fi
 
 # determine the shell type
 if [ -n "$BASH_VERSION" ]; then
-	export SHELL_TYPE="bash"
+  export SHELL_TYPE="bash"
 elif [ -n "$ZSH_VERSION" ]; then
-	export SHELL_TYPE="zsh"
+  export SHELL_TYPE="zsh"
 fi
 
 # add the user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-	export PATH="$HOME/bin:$PATH"
+  export PATH="$HOME/bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ] ; then
-	export PATH="$HOME/.local/bin:$PATH"
+  export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # if snap is installed, add snap bin to PATH
 if command -v snap >/dev/null; then
-	export PATH="/snap/bin:$PATH"
+  export PATH="/snap/bin:$PATH"
 fi
 
 # if mise is installed, activate
 if command -v mise >/dev/null; then
-	eval "$(mise activate $SHELL_TYPE)"
+  eval "$(mise activate $SHELL_TYPE)"
 fi
 
 # if bun is installed, add completions
 if command -v bun >/dev/null; then
-	source <(bun completions $SHELL_TYPE)
+  source <(bun completions $SHELL_TYPE)
 fi
 
 # if pnpm is installed, add completions
 if command -v pnpm >/dev/null; then
-	source <(pnpm completion $SHELL_TYPE)
+  source <(pnpm completion $SHELL_TYPE)
 fi
 
 # initialize fzf
 if command -v fzf >/dev/null; then
-	source <(fzf --$SHELL_TYPE)
+  source <(fzf --$SHELL_TYPE)
 fi
 
 # initialize zoxide
 if command -v zoxide >/dev/null; then
-	source <(zoxide init $SHELL_TYPE)
+  source <(zoxide init $SHELL_TYPE)
 fi
 
 {{- if eq .chezmoi.os "linux" }}
@@ -60,19 +60,19 @@ alias op=op.exe
 
 # initialize Homebrew
 if command -v brew >/dev/null; then
-	eval "$(brew shellenv)"
-	if [ -f "$HOME/.local/bin/hb" ]; then
-		brew() { "$HOME/.local/bin/hb" "$@"; }
-	fi
+  eval "$(brew shellenv)"
+  if [ -f "$HOME/.local/bin/hb" ]; then
+    brew() { "$HOME/.local/bin/hb" "$@"; }
+  fi
 fi
 
 # initialize oh-my-posh
 if command -v oh-my-posh >/dev/null; then
-	OH_MY_POSH_CONFIG="~/.config/oh-my-posh/main.omp.json"
-	eval "$(oh-my-posh init $SHELL_TYPE --config $OH_MY_POSH_CONFIG)"
+  OH_MY_POSH_CONFIG="~/.config/oh-my-posh/main.omp.json"
+  eval "$(oh-my-posh init $SHELL_TYPE --config $OH_MY_POSH_CONFIG)"
 fi
 
 # visual studio code
 if command -v code >/dev/null; then
-	export EDITOR=code
+  export EDITOR=code
 fi

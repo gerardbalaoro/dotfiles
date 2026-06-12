@@ -48,5 +48,5 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Load Profile
 if [ -f "$HOME/.profile" ]; then
-    . "$HOME/.profile"
+  . "$HOME/.profile"
 fi

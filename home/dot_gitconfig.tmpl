@@ -1,48 +1,48 @@
 [user]
-	name = Gerard Balaoro
-	email = gerardbalaoro@gmail.com
+  name = Gerard Balaoro
+  email = gerardbalaoro@gmail.com
 [core]
-	editor = code --wait
+  editor = code --wait
 {{- if eq .chezmoi.os "windows" }}
-	fileMode = false
+  fileMode = false
 {{- end }}
 [sequence]
-	editor = code --wait
+  editor = code --wait
 [init]
-    defaultBranchName = main
+  defaultBranchName = main
 [alias]
-	cm = commit
-	cmm = commit -i
-	cmf = commit --fixup
-	ca = commit --amend
-	cam = commit --amend -m
-	cane = commit --amend --no-edit
-	rsu = reset @{u}
-	rbi = rebase -i
-	rbc = rebase --continue
-	rba = rebase --abort
-	rbs = rebase --autosquash
-	co = checkout
-	st = status
-	br = branch
-	lo = log --oneline --graph --decorate
-	stu = stash --include-untracked
-	stp = stash pop
-	psf = push --force-with-lease
+  cm = commit
+  cmm = commit -i
+  cmf = commit --fixup
+  ca = commit --amend
+  cam = commit --amend -m
+  cane = commit --amend --no-edit
+  rsu = reset @{u}
+  rbi = rebase -i
+  rbc = rebase --continue
+  rba = rebase --abort
+  rbs = rebase --autosquash
+  co = checkout
+  st = status
+  br = branch
+  lo = log --oneline --graph --decorate
+  stu = stash --include-untracked
+  stp = stash pop
+  psf = push --force-with-lease
 {{- if eq .chezmoi.os "linux" }}
 {{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [credential]
-	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+  helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
 {{- end }}
 {{- end }}
 {{- if eq .chezmoi.os "darwin" }}
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 {{- end }}
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
