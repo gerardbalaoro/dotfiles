@@ -51,7 +51,16 @@ Use explore when relevant files, symbols, flows, or architecture are unknown.
 
 Use research when current or version-specific external information matters.
 
-Use code when the change is well-scoped and implementation or validation is needed.
+Use code only when the change is well-scoped enough that the prompt can name the
+exact files, constraints, and intended edit strategy. Do not call code when the
+prompt would ask the agent to discover the problem area, choose the fix strategy,
+or make maintainability/product/architecture judgment calls before it can
+implement.
+
+When code is not specific enough yet, tighten the scope yourself using direct
+inspection or explore. Use a lead subagent only for edge cases where the known
+files still require independent planning or tradeoff analysis before you can
+write a surgical code prompt.
 
 Use review when a bounded code review of a diff, files, branch, or PR is needed.
 
