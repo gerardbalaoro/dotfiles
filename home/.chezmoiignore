@@ -1,6 +1,7 @@
 {{- if ne .chezmoi.os "windows" }}
 .chezmoiscripts/windows/**
 {{- else }}
+.chezmoiscripts/unix/**
 .local/bin/**
 {{- end }}
 

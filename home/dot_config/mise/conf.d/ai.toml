@@ -1,0 +1,13 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+codex = { version = "latest", os = ["linux", "macos"] }
+opencode = { version = "latest", os = ["linux", "macos"] }
+
+[env]
+_.path = [
+  "{{env.HOME}}/.opencode/bin"
+]
+
+[shell_alias]
+cx = "codex --ask-for-approval never --sandbox danger-full-access"
