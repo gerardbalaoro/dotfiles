@@ -1,0 +1,38 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+"github:runkids/skillshare" = { version = "latest" }
+"github:getpaseo/paseo" = { version = "latest" }
+"github:kdcokenny/ocx" = { version = "latest" }
+"npm:agent-browser" = { version = "latest", allow_builds = true }
+"npm:ctx7" = { version = "latest", allow_builds = true }
+
+[tools.codex]
+version = "latest"
+os = ["linux", "macos"]
+minimum_release_age = "6h"
+
+[tools.opencode]
+version = "latest"
+os = ["linux", "macos"]
+minimum_release_age = "6h"
+
+[tools."npm:@kilocode/cli"]
+version = "latest"
+os = ["linux", "macos"]
+minimum_release_age = "6h"
+
+[tools."npm:@openchamber/web"]
+version = "latest"
+os = ["linux", "macos"]
+minimum_release_age = "6h"
+
+[env]
+_.path = [
+  "{{env.HOME}}/.opencode/bin"
+]
+OPENCODE_ENABLE_EXA=1
+OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+
+[shell_alias]
+cx = "codex --ask-for-approval never --sandbox danger-full-access"

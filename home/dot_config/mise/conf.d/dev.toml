@@ -1,0 +1,21 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+bun = "latest"
+deno = "latest"
+node = "24"
+pnpm = "latest"
+viteplus = "latest"
+uv = { version = "latest", post_install = "uv python install --default" }
+
+[env]
+PNPM_HOME="{{env.HOME}}/.local/share/pnpm"
+_.path = [
+  "{{env.HOME}}/.local/share/pnpm",
+  "{{env.HOME}}/.local/share/pnpm/bin",
+  "{{env.HOME}}/.bun/bin"
+]
+
+[shell_alias]
+bunx = "bun x"
+pnpx = "pnpm dlx"

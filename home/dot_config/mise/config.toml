@@ -1,0 +1,10 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+aube = "latest"
+
+[settings]
+minimum_release_age = "1d"
+
+[settings.npm]
+package_manager = "aube"
