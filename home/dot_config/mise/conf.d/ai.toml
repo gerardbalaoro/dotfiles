@@ -3,6 +3,7 @@
 [tools]
 codex = { version = "latest", os = ["linux", "macos"] }
 opencode = { version = "latest", os = ["linux", "macos"] }
+"github:runkids/skillshare" = { version = "latest" }
 
 [env]
 _.path = [
