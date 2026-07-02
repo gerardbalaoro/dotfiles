@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "terminal_background": "background",
+  "console_title_template": "{{ .Shell }}://{{ .UserName }}@{{ .HostName }}",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "green",
+          "style": "plain",
+          "template": "{{ .UserName }}@{{ .HostName }} ",
+          "type": "session"
+        },
+        {
+          "foreground": "blue",
+          "style": "plain",
+          "options": {
+            "style": "full"
+          },
+          "template": "{{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "options": {
+            "branch_icon": "",
+            "fetch_status": true
+          },
+          "style": "plain",
+          "template": "<yellow>git</>:({{ if or (.Working.Changed) (.Staging.Changed) (gt .StashCount 0) }}<magenta>{{ .HEAD }}</>{{ else }}<green>{{ .HEAD }}</>{{ end }}{{ if (gt .Ahead 0)}}<cyan>{{ .BranchStatus }}</>{{ end }}{{ if (gt .Behind 0)}}<cyan>{{ .BranchStatus }}</>{{ end }}{{ if .Staging.Changed }} <green>{{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }} <red>{{ .Working.String }}</>{{ end }})",
+          "type": "git"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "foreground",
+          "style": "plain",
+          "template": "> ",
+          "type": "shell"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 4
+}

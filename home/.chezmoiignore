@@ -3,6 +3,9 @@
 {{- else }}
 .chezmoiscripts/unix/**
 .local/bin/**
+.bashrc
+.profile
+.zshrc
 {{- end }}
 
 {{- if ne .chezmoi.os "linux" }}
