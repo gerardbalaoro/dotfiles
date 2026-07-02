@@ -1,0 +1,140 @@
+{
+  "$schema": "./node_modules/opencode-model-presets/config.schema.json",
+  "opencode-go": {
+    "name": "Go",
+    "description": "OpenCode Go models chosen for quality, speed, and efficiency.",
+    "model": "opencode-go/glm-5.2",
+    "variant": "high",
+    "agent": {
+      "chat": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "explore": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "lead": {
+        "model": "opencode-go/kimi-k3",
+        "variant": "high",
+      },
+      "plan": {
+        "model": "opencode-go/kimi-k3",
+        "variant": "high",
+      },
+      "code": {
+        "model": "opencode-go/glm-5.2",
+        "variant": "high",
+      },
+      "review": {
+        "model": "opencode-go/grok-4.5",
+        "variant": "high",
+      },
+      "research": {
+        "model": "opencode-go/glm-5.2",
+        "variant": "high",
+      },
+    },
+  },
+  "openai-plus": {
+    "name": "Plus",
+    "description": "OpenAI models configured to make the most of ChatGPT Plus.",
+    "model": "openai/gpt-5.6-luna",
+    "variant": "max",
+    "agent": {
+      "chat": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "medium",
+      },
+      "explore": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "high",
+      },
+      "lead": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "high",
+      },
+      "plan": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "high",
+      },
+      "code": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "max",
+      },
+      "review": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "high",
+      },
+      "research": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "max",
+      },
+    },
+  },
+  "fusion-go-plus": {
+    "name": "Go Plus",
+    "description": "OpenAI and OpenCode Go models chosen for maximum workflow quality.",
+    "model": "openai/gpt-5.6-luna",
+    "variant": "max",
+    "agent": {
+      "chat": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "explore": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "lead": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "high",
+      },
+      "plan": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "high",
+      },
+      "code": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "max",
+      },
+      "review": {
+        "model": "opencode-go/grok-4.5",
+        "variant": "high",
+      },
+      "research": {
+        "model": "opencode-go/glm-5.2",
+        "variant": "high",
+      },
+    },
+  },
+  "fusion-go-plus-lean": {
+    "name": "Go Plus Lean",
+    "description": "OpenAI and OpenCode Go models chosen for cost-efficient workflows.",
+    "model": "opencode-go/minimax-m3",
+    "agent": {
+      "chat": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "explore": {
+        "model": "opencode-go/deepseek-v4-flash",
+      },
+      "lead": {
+        "model": "openai/gpt-5.6-sol",
+        "variant": "medium",
+      },
+      "plan": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "high",
+      },
+      "code": {
+        "model": "openai/gpt-5.6-luna",
+        "variant": "high",
+      },
+      "review": {
+        "model": "opencode-go/glm-5.2",
+        "variant": "high",
+      },
+      "research": {
+        "model": "opencode-go/deepseek-v4-pro",
+        "variant": "high",
+      },
+    },
+  },
+}

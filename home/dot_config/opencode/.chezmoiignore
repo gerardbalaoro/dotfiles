@@ -1,0 +1,12 @@
+# Ignore all plugins, except some
+/plugins/*
+!/plugins/model-presets
+!/plugins/token-watch
+
+**/node_modules
+**/package.json
+**/package-lock.json
+**/pnpm-lock.yaml
+**/bun.lock
+**/.gitignore
+**/.env

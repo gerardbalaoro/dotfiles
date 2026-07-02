@@ -1,0 +1,28 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/kimi-k3",
+  "small_model": "opencode-go/deepseek-v4-flash",
+  "default_agent": "chat",
+  "agent": {
+    "chat": {
+      "mode": "primary",
+      "description": "A fast, general-purpose agent.",
+      "model": "opencode-go/deepseek-v4-flash"
+    }
+  },
+  "lsp": true,
+  "mcp": {
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": true,
+      "oauth": {}
+    }
+  },
+  "permission": {
+    "external_directory": {
+      "*": "allow"
+    }
+  },
+  "plugin": ["@slkiser/opencode-quota", "./plugins/token-watch", "./plugins/model-presets"]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "propertyNames": {
+    "type": "string"
+  },
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The preset's display name"
+      },
+      "description": {
+        "type": "string",
+        "description": "A short description about the preset"
+      },
+      "model": {
+        "type": "string",
+        "pattern": "^[^/]+\\/[^/]+$",
+        "description": "AI model identifier in provider/model format"
+      },
+      "variant": {
+        "description": "Default model variant for this preset",
+        "type": "string"
+      },
+      "agent": {
+        "description": "The preset's model preferences for agents",
+        "type": "object",
+        "propertyNames": {
+          "type": "string"
+        },
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string",
+              "pattern": "^[^/]+\\/[^/]+$",
+              "description": "AI model identifier in provider/model format"
+            },
+            "variant": {
+              "description": "Default model variant for this agent",
+              "type": "string"
+            }
+          },
+          "required": ["model"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["name", "description"],
+    "additionalProperties": false
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

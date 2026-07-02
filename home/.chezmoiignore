@@ -18,3 +18,15 @@ Documents
 .chezmoiscripts/darwin/**
 .config/ghostty/**
 {{- end }}
+
+**/node_modules/
+**/dist/
+**/.git/
+__pycache__/
+*.pyc
+.venv/
+.virtualenvs/
+.env/
+.cache/
+.coverage/
+*.log
