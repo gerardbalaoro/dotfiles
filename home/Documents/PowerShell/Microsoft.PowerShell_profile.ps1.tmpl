@@ -1,0 +1,7 @@
+# Aliases
+Set-Alias -Name which -Value where.exe
+
+# Oh-My-Posh
+if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
+    oh-my-posh init pwsh --config {{ joinPath .chezmoi.homeDir .omp.config }} | Invoke-Expression
+}

@@ -1,5 +1,7 @@
 {{- if ne .chezmoi.os "windows" }}
 .chezmoiscripts/windows/**
+AppData
+Documents
 {{- else }}
 .chezmoiscripts/unix/**
 .local/bin/**
@@ -14,4 +16,5 @@
 
 {{- if ne .chezmoi.os "darwin" }}
 .chezmoiscripts/darwin/**
+.config/ghostty/**
 {{- end }}

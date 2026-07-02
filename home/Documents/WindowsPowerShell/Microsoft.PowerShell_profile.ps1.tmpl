@@ -1,0 +1,3 @@
+if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
+    oh-my-posh init pwsh --config {{ joinPath .chezmoi.homeDir .omp.config }} | Invoke-Expression
+}
