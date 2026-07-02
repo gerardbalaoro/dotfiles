@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+{{ end -}}
+Host github.com
+  User git
+
+Host hyperion
+  User Gerard
+
+Host lab
+  User gerard
+{{- if eq .chezmoi.os "windows" }}
+
+Host wsl
+  HostName 127.0.0.1
+  Port 23
+  User gerard
+{{- end }}
