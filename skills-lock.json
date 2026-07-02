@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "chezmoi-workflows": {
+      "source": "terrylica/cc-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/dotfiles-tools/skills/chezmoi-workflows/SKILL.md",
+      "computedHash": "917a4d8ff0894c48702d37f7b351912eafb7f419b6b67c88e58f902e24535813"
+    },
+    "mise-configuration": {
+      "source": "terrylica/cc-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/itp/skills/mise-configuration/SKILL.md",
+      "computedHash": "ca60acb79ace55f6039f898c3f3d403d7521cf2c1ada06f7a3bf4bcd22ec76fa"
+    }
+  }
+}

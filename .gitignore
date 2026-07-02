@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+node_modules/
+__pycache__/
