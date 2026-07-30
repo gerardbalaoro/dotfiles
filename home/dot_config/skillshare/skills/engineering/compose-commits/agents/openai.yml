@@ -1,0 +1,5 @@
+interface:
+  display_name: "Compose Commits"
+  short_description: "Rewrite current work into clean logical commits"
+  brand_color: "#2563EB"
+  default_prompt: "Use $compose-commits to inspect the requested Git scope, propose a logical commit breakdown, and rewrite only after confirmation."

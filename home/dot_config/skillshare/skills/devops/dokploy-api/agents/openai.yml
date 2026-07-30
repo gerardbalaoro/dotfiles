@@ -1,0 +1,5 @@
+interface:
+  display_name: "Dokploy API"
+  short_description: "Manage Dokploy instances through the HTTP API"
+  brand_color: "#16A34A"
+  default_prompt: "Use $dokploy-api to operate on a Dokploy instance through the HTTP API with discovery, confirmation gates, and post-change verification."
