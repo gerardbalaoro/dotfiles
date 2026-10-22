@@ -2,28 +2,23 @@
 
 [tools]
 "github:runkids/skillshare" = { version = "latest" }
-"github:getpaseo/paseo" = { version = "latest" }
-"github:kdcokenny/ocx" = { version = "latest" }
 "npm:agent-browser" = { version = "latest", allow_builds = true }
 "npm:ctx7" = { version = "latest", allow_builds = true }
 
 [tools.codex]
 version = "latest"
-os = ["linux", "macos"]
-minimum_release_age = "6h"
+minimum_release_age = "0s"
 
 [tools.opencode]
 version = "latest"
-os = ["linux", "macos"]
-minimum_release_age = "6h"
+allow_builds = true
+minimum_release_age = "0s"
 
-[tools."npm:@kilocode/cli"]
+[tools."npm:@getpaseo/cli"]
 version = "latest"
-os = ["linux", "macos"]
-minimum_release_age = "6h"
+allow_builds = true
+minimum_release_age = "0s"
 
-[tools."npm:@openchamber/web"]
-version = "latest"
-os = ["linux", "macos"]
-minimum_release_age = "6h"
-
+[tools."npm:t3"]
+version = "nightly"
+minimum_release_age = "0s"
