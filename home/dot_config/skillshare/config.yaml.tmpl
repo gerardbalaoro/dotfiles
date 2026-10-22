@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/runkids/skillshare/main/schemas/config.schema.json
 sources:
-  skills: /home/gerard/.config/skillshare/skills
-  agents: /home/gerard/.config/skillshare/agents
+  skills: {{ joinPath .chezmoi.homeDir ".config/skillshare/skills" | quote }}
+  agents: {{ joinPath .chezmoi.homeDir ".config/skillshare/agents" | quote }}
 mode: merge
 targets:
   universal:
     skills:
-      path: /home/gerard/.agents/skills
+      path: {{ joinPath .chezmoi.homeDir ".agents/skills" | quote }}
 ignore:
   - .DS_Store
   - .git/

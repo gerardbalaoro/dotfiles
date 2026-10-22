@@ -1,19 +1,19 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [tools]
+aube = "latest"
 bun = "latest"
 deno = "latest"
-node = "24"
+node = "26"
 pnpm = "latest"
 viteplus = "latest"
 uv = { version = "latest", post_install = "uv python install --default" }
 
 [env]
-PNPM_HOME="{{env.HOME}}/.local/share/pnpm"
+PNPM_HOME = "{% if os() == 'windows' %}{{ env.LOCALAPPDATA }}/pnpm{% else %}{{ env.HOME }}/.local/share/pnpm{% endif %}"
 _.path = [
-  "{{env.HOME}}/.local/share/pnpm",
-  "{{env.HOME}}/.local/share/pnpm/bin",
-  "{{env.HOME}}/.bun/bin"
+  "{{ env.PNPM_HOME }}",
+  "{{ env.PNPM_HOME }}/bin",
 ]
 
 [shell_alias]
