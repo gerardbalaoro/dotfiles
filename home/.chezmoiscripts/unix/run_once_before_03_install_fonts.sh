@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 if command -v oh-my-posh >/dev/null; then
   chezmoi git lfs install
@@ -9,5 +10,6 @@ if command -v oh-my-posh >/dev/null; then
     oh-my-posh font install "$CHEZMOI_WORKING_TREE/data/fonts/$font.zip"
   done
 else
-  echo "oh-my-posh not found, skipping font installation"
+  echo "oh-my-posh not found; run mise bootstrap to install prerequisites" >&2
+  exit 1
 fi

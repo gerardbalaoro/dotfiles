@@ -1,23 +1,29 @@
 function Get-Package {
     param (
-        [string]$PackageId
+        [string]$PackageId,
+        [string]$Source = $null
     )
 
-    $result = winget list --id $PackageId -e 2>$null
-    return $result -match $PackageId
+    $listArgs = @('list', '--id', $PackageId, '--exact')
+    if ($Source) { $listArgs += @('--source', $Source) }
+    & winget @listArgs *> $null
+    return $LASTEXITCODE -eq 0
 }
 
 function Install-Package {
     param (
         [string]$id,
-        [string]$location = $null
+        [string]$location = $null,
+        [string]$source = $null
     )
 
-    if (-not (Get-Package $id)) {
-        if ($location) {
-            winget install --id=$id -e --silent --accept-package-agreements --accept-source-agreements --location=$location
-        } else {
-            winget install --id=$id -e --silent --accept-package-agreements --accept-source-agreements
+    if (-not (Get-Package -PackageId $id -Source $source)) {
+        $installArgs = @('install', '--id', $id, '--exact', '--silent', '--accept-package-agreements', '--accept-source-agreements')
+        if ($location) { $installArgs += @('--location', $location) }
+        if ($source) { $installArgs += @('--source', $source) }
+        & winget @installArgs
+        if ($LASTEXITCODE -ne 0) {
+            throw "WinGet failed to install $id (exit $LASTEXITCODE)"
         }
     }
 }

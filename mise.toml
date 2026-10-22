@@ -1,0 +1,29 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+min_version = "2026.10.11"
+
+# The same tool declarations are deployed as global config by chezmoi.
+include = [
+  "home/dot_config/mise/conf.d/dev.toml",
+  "home/dot_config/mise/conf.d/ai.toml",
+  "home/dot_config/mise/conf.d/utils.toml",
+  "bootstrap/packages.toml",
+]
+
+# Match the defaults in home/dot_config/mise/config.toml on a fresh machine.
+[settings]
+minimum_release_age = "1d"
+
+[settings.npm]
+package_manager = "aube"
+
+[bootstrap.hooks]
+# Use the Homebrew CLI on both Intel and Apple Silicon Macs. mise's native
+# brew manager does not support Intel Macs.
+pre-packages = "{% if os() == 'macos' %}bash {{ config_root | quote }}/bootstrap/macos.sh{% else %}exit 0{% endif %}"
+post-packages = "{% if os() == 'linux' %}bash {{ config_root | quote }}/bootstrap/linux.sh{% else %}exit 0{% endif %}"
+
+[tasks.bootstrap]
+description = "Apply dotfiles from this checkout after installing packages and tools"
+run = "bash bootstrap/apply.sh"
+run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File bootstrap/apply.ps1"
+
