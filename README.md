@@ -1,106 +1,117 @@
-# Gerard's dotfiles
+# Gerard's Dotfiles
 
-My personal configuration files managed by [chezmoi](https://www.chezmoi.io/),
-with packages and tools provisioned by [mise bootstrap](https://mise.jdx.dev/bootstrap.html).
+Packages, development tools, and dotfiles managed with [mise bootstrap](https://mise.jdx.dev/bootstrap.html).
 
-## Installation
+## Bootstrap
 
-Requires Git and mise **2026.10.11 or newer**. Unix setup also needs curl and
-sudo access for system packages. On Windows, WinGet must be available; some
-installers and Windows settings request administrator access.
+Before starting, prepare:
 
-**Unix (macOS/Linux)** — install Git first using the system package manager
-(Xcode Command Line Tools on macOS), then install mise:
+- **1Password:** an account containing the `Personal/SSH Key` item.
+- **macOS / Linux:** curl and sudo access.
+- **Windows:** WinGet and administrator access when requested.
+- **WSL:** the Windows 1Password app and CLI, with `op.exe` available on WSL's PATH.
+
+The bootstrap scripts install Git and mise, provision packages and tools, and pause for 1Password access before applying dotfiles.
+Sign in to 1Password and enable CLI integration, or use an authenticated CLI session on Linux.
+
+**macOS / Linux / WSL**
 
 ```sh
-curl -fsSL https://mise.run | sh
-~/.local/bin/mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git --skip task
+curl -fsSL https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/bootstrap.sh | sh
 ```
 
 **Windows (PowerShell)**
 
 ```powershell
-winget install --id Git.Git --exact
-winget install --id jdx.mise --exact
+irm https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/bootstrap.ps1 | iex
 ```
 
-Open a new terminal so Git and mise are on PATH, then run:
+On macOS, complete Xcode Command Line Tools installation when prompted.
+Open a new terminal after setup to activate tools and shell integrations.
+
+From an existing checkout, use its bootstrap script:
+
+```sh
+./scripts/bootstrap.sh
+```
 
 ```powershell
-mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git --skip task
+.\scripts\bootstrap.ps1
 ```
 
-This first pass installs packages, development tools, AI CLIs, and the
-1Password CLI. Sign in to 1Password and enable CLI integration (or establish
-a CLI session on Linux). WSL uses the Windows `op.exe`, which must be installed,
-authenticated, and available on PATH. Git and SSH templates need access to the
-`Personal/SSH Key` item.
+## Layers
 
-Finish setup from the same repository:
+Each layer contains a `home/` tree and any packages or setup scripts it needs:
 
-```sh
-mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git
+```text
+layers/
+  common/   Shared tools, Git/SSH, skills, application settings, and fonts
+  unix/     Bash, Zsh, .profile, and shell integrations
+  linux/    Linux packages, native integrations, and login shell
+  macos/    Homebrew and Ghostty
+  windows/  WinGet, PowerShell/Clink, desktop apps, and Windows preferences
+  wsl/      Windows 1Password integration and WSL Hello sudo
+scripts/
+  bootstrap.sh
+  bootstrap.ps1
 ```
 
-On Unix, use `~/.local/bin/mise` if mise is not yet on PATH. The bootstrap task
-initializes chezmoi against mise's checkout, applies the dotfiles, and saves
-that source location. Open a new terminal afterwards to activate the tools.
+| Environment | Selected Layers |
+| --- | --- |
+| Native Linux | common + unix + linux |
+| WSL | common + unix + linux + wsl |
+| macOS | common + unix + macos |
+| Windows | common + windows |
 
-## Existing checkout and updates
+Shared rules live in [mise.toml](mise.toml); `mise.<layer>.toml` defines layer-specific rules.
+Mise selects Unix and OS layers automatically.
+WSL bootstrap saves its selection in the checkout's ignored `.miserc.local.toml`.
+If that file already exists, add `wsl` to its `env` list.
+You can also select WSL explicitly with `mise -E wsl ...`.
 
-To use an existing checkout instead of creating mise's default checkout:
+Layers are additive, and each target file belongs to one layer.
+Keep small platform differences in a shared template to avoid competing copies.
+
+## Updates
+
+To update a checkout created by remote bootstrap, rerun the remote bootstrap command above.
+
+For a manually managed checkout, pull changes before provisioning:
 
 ```sh
-cd /path/to/dotfiles
-mise trust
+git pull --ff-only
 mise bootstrap --update
 ```
 
-Pull changes before running this command in a manually managed checkout.
-For a checkout created with `--from`, use the same URL with `--update` to
-fast-forward it and refresh package metadata:
+Bootstrap installs missing packages and tools.
+Add `--upgrade` to upgrade managed tools and native packages.
+On macOS, run `brew upgrade` separately.
+
+## Dotfile Changes
+
+Edit sources under `layers/<layer>/home/`.
+Ordinary files deploy automatically through [dotfile groups](https://mise.jdx.dev/dotfiles/groups.html).
+For example, `layers/unix/home/dot-bashrc` becomes `~/.bashrc`.
+Declare Tera templates, permission exceptions, and file removals in the corresponding mise config.
+
+Dotfiles are copied.
+Reapplying replaces direct edits to managed targets and preserves unmanaged files.
+From the checkout, open a file's source and apply changes:
 
 ```sh
-mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git --update
+mise dot edit ~/.zshrc
+mise dot apply
 ```
-
-Bootstrap installs missing packages; add `--upgrade` when you also want to
-upgrade installed packages and tools. macOS's Homebrew script only installs
-missing packages; use `brew upgrade` explicitly for those packages.
-`chezmoi apply` still applies file changes, but does not provision system packages.
-
-## Ownership
-
-- `bootstrap/packages.toml`: apt, dnf, pacman, zypper, apk and WinGet packages.
-- `bootstrap/macos.sh`: guarded Homebrew installs on Intel and Apple Silicon.
-  mise invokes this before its package phase, without a different-owner wrapper.
-- `bootstrap/linux.sh`: the existing native 1Password and Oh My Posh installers,
-  invoked after packages and skipped when the commands already exist.
-- `home/dot_config/mise/conf.d/`: shared development and AI CLI tools, including
-  Codex, OpenCode, Paseo and T3 nightly, for Linux, macOS and Windows. The root config
-  includes these files, and chezmoi deploys them as global mise configuration.
-- chezmoi scripts: fonts, WSL Hello sudo, Linux login-shell setup, Windows
-  preferences, Scoop, the custom Oh My Posh install, and the Codex Store app.
-  OpenCode Desktop is a WinGet package; desktop apps are separate from AI CLIs.
-
-AI application settings, custom OpenCode agents/themes, experimental OpenCode
-flags and the forced-permission Codex alias are no longer managed here. Shared
-skills and repository instructions remain. Removing source files does not delete
-previously deployed copies: existing machines should remove unwanted old
-OpenCode configuration from `~/.config/opencode` separately, preserving any
-locally maintained settings or skills. No Codex or Claude settings files were
-tracked in this repository.
 
 ## Preview
 
-From the checkout, preview provisioning and then chezmoi's file changes:
+From the checkout, preview provisioning or dotfile changes:
 
 ```sh
 mise bootstrap --dry-run
-chezmoi --source . diff
+mise dot apply --dry-run
 ```
 
-The first command prints hooks and tasks without executing them; it cannot show
-the changes inside a Homebrew script or `chezmoi apply`. The second needs chezmoi
-installed and 1Password access for secret-backed templates. A `--from` dry run
-without an existing checkout only previews cloning the repository.
+Dry runs print setup commands without executing their contents or reading 1Password values.
+Status and diff commands render templates and can request 1Password access.
+Private-key diffs can contain secrets.
