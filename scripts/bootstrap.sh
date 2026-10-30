@@ -9,6 +9,7 @@ if [ -f "$0" ]; then
     source_directory="$candidate"
   fi
 fi
+bootstrap_directory="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/bootstrap-repo"
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 # Platform configs must be selected even before --from has cloned .miserc.toml.
 export MISE_AUTO_ENV=true
@@ -32,7 +33,7 @@ bootstrap() {
   if [ -n "$source_directory" ]; then
     mise -C "$source_directory" bootstrap "$@"
   else
-    mise bootstrap --from "$repository_url" "$@"
+    mise bootstrap --from "$repository_url" --from-dir "$bootstrap_directory" "$@"
   fi
 }
 
@@ -77,11 +78,15 @@ if ! command -v mise >/dev/null 2>&1 ||
   hash -r
 fi
 
-# Install 1Password before rendering any template that reads from it.
+# Install fnox and 1Password before resolving bootstrap secrets.
 if [ -n "$source_directory" ]; then
   mise -C "$source_directory" trust
 fi
 bootstrap --skip dotfiles,task --update
+if [ -z "$source_directory" ]; then
+  source_directory="$bootstrap_directory"
+  mise -C "$source_directory" trust
+fi
 
 if [ "$(uname -s)" = Darwin ]; then
   if [ -x /opt/homebrew/bin/brew ]; then
@@ -99,11 +104,6 @@ if ! command -v "$op_command" >/dev/null 2>&1; then
   echo "$op_command is required; on WSL, install the Windows 1Password CLI and expose it on PATH." >&2
   exit 1
 fi
-while ! "$op_command" read 'op://Personal/SSH Key/email' >/dev/null 2>&1; do
-  echo 'Sign in to 1Password and enable CLI integration, or establish a CLI session.'
-  printf 'Once Personal/SSH Key is accessible, press Enter to retry: '
-  read -r answer </dev/tty
-done
-
-bootstrap
+echo 'Grant 1Password access to Personal/SSH Key when prompted.'
+mise -C "$source_directory" exec -- fnox exec --only 'DOTFILES_*' -- mise -C "$source_directory" bootstrap
 echo 'Setup complete. Open a new terminal to activate your tools.'

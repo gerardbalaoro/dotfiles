@@ -1,0 +1,3 @@
+#!/bin/sh
+# fnox invokes op by name; use the Windows app's authenticated CLI on WSL.
+exec op.exe "$@"

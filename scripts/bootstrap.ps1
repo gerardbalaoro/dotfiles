@@ -9,6 +9,10 @@ if ($PSScriptRoot) {
         $sourceDirectory = $candidate
     }
 }
+$miseDataDirectory = if ($env:MISE_DATA_DIR) { $env:MISE_DATA_DIR }
+    elseif ($env:XDG_DATA_HOME) { Join-Path $env:XDG_DATA_HOME 'mise' }
+    else { Join-Path $env:LOCALAPPDATA 'mise' }
+$bootstrapDirectory = Join-Path $miseDataDirectory 'bootstrap-repo'
 
 function Update-ProcessPath {
     $env:Path = @(
@@ -52,7 +56,7 @@ function Invoke-Bootstrap {
     if ($sourceDirectory) {
         & mise -C $sourceDirectory bootstrap @BootstrapArguments
     } else {
-        & mise bootstrap --from $repositoryUrl @BootstrapArguments
+        & mise bootstrap --from $repositoryUrl --from-dir $bootstrapDirectory @BootstrapArguments
     }
     if ($LASTEXITCODE -ne 0) { throw 'Bootstrap failed' }
 }
@@ -79,21 +83,17 @@ if ($sourceDirectory) {
     if ($LASTEXITCODE -ne 0) { throw 'Could not trust the local checkout' }
 }
 Invoke-Bootstrap -BootstrapArguments @('--skip', 'dotfiles,task', '--update')
+if (-not $sourceDirectory) {
+    $sourceDirectory = $bootstrapDirectory
+    & mise -C $sourceDirectory trust
+    if ($LASTEXITCODE -ne 0) { throw 'Could not trust the bootstrap checkout' }
+}
 Update-ProcessPath
 
 if (-not (Get-Command op -ErrorAction SilentlyContinue)) {
     throw '1Password CLI is not available on PATH after provisioning'
 }
-while ($true) {
-    $accessible = $false
-    try {
-        & op read 'op://Personal/SSH Key/email' 2>$null | Out-Null
-        $accessible = $LASTEXITCODE -eq 0
-    } catch { }
-    if ($accessible) { break }
-    Write-Host 'Sign in to 1Password and enable CLI integration.'
-    Read-Host 'Once Personal/SSH Key is accessible, press Enter to retry' | Out-Null
-}
-
-Invoke-Bootstrap
+Write-Host 'Grant 1Password access to Personal/SSH Key when prompted.'
+& mise -C $sourceDirectory exec -- fnox exec --only 'DOTFILES_*' -- mise -C $sourceDirectory bootstrap
+if ($LASTEXITCODE -ne 0) { throw 'Authenticated bootstrap failed' }
 Write-Host 'Setup complete. Open a new terminal to activate your tools.'

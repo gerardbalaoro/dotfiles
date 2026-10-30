@@ -11,7 +11,11 @@ include = [
 [vars]
 home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
 is_wsl = "false"
-op_command = "op"
+
+[bootstrap.secrets]
+git_email = "DOTFILES_GIT_EMAIL"
+ssh_public_key = "DOTFILES_SSH_PUBLIC_KEY"
+ssh_private_key = "DOTFILES_SSH_PRIVATE_KEY"
 
 [settings]
 minimum_release_age = "1d"

@@ -11,8 +11,9 @@ Before starting, prepare:
 - **Windows:** WinGet and administrator access when requested.
 - **WSL:** the Windows 1Password app and CLI, with `op.exe` available on WSL's PATH.
 
-The bootstrap scripts install Git and mise, provision packages and tools, and pause for 1Password access before applying dotfiles.
+The bootstrap scripts install Git and mise, provision packages and tools, and request 1Password access before applying dotfiles.
 Sign in to 1Password and enable CLI integration, or use an authenticated CLI session on Linux.
+Secrets are declared in [fnox.toml](fnox.toml) and supplied through [fnox's 1Password provider](https://fnox.jdx.dev/providers/1password.html).
 Windows bootstrap uses the [official mise installer](https://mise.jdx.dev/installing-mise.html#windows-script) when mise is missing or too old.
 
 **macOS / Linux / WSL**
@@ -81,7 +82,7 @@ For a manually managed checkout, pull changes before provisioning:
 
 ```sh
 git pull --ff-only
-mise bootstrap --update
+mise exec -- fnox exec --only 'DOTFILES_*' -- mise bootstrap --update
 ```
 
 Bootstrap installs missing packages and tools.
@@ -101,8 +102,10 @@ From the checkout, open a file's source and apply changes:
 
 ```sh
 mise dot edit ~/.zshrc
-mise dot apply
+mise exec -- fnox exec --only 'DOTFILES_*' -- mise dot apply
 ```
+
+On WSL, mise adds the layer's `op` wrapper to PATH so fnox uses the Windows `op.exe`.
 
 ## Preview
 
@@ -114,5 +117,5 @@ mise dot apply --dry-run
 ```
 
 Dry runs print setup commands without executing their contents or reading 1Password values.
-Status and diff commands render templates and can request 1Password access.
-Private-key diffs can contain secrets.
+Status and diff commands that render templates also need the `mise exec -- fnox exec --only 'DOTFILES_*' --` prefix.
+Fnox supplies values to the subprocess; `fnox.toml` contains only references.

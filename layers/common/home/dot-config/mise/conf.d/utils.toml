@@ -1,6 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [tools]
+fnox = "1.45.0"
 github-cli="latest"
 herdr = "latest"
 "npm:varlock" = "latest"

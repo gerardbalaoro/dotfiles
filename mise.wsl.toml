@@ -1,6 +1,8 @@
 [vars]
 is_wsl = "true"
-op_command = "op.exe"
+
+[env]
+_.path = ["{{ config_root }}/layers/wsl/bin"]
 
 [dotfile_groups.wsl]
 root = "wsl/home"

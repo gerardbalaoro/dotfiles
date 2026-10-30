@@ -1,0 +1,13 @@
+root = true
+env = "exec"
+if_missing = "error"
+redact_exec = true
+
+[providers.op]
+type = "1password"
+vault = "Personal"
+
+[secrets]
+DOTFILES_GIT_EMAIL = { provider = "op", value = "SSH Key/email" }
+DOTFILES_SSH_PUBLIC_KEY = { provider = "op", value = "SSH Key/public key" }
+DOTFILES_SSH_PRIVATE_KEY = { provider = "op", value = "SSH Key/private key" }

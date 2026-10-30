@@ -1,6 +1,6 @@
 [user]
   name = Gerard Balaoro
-  email = {{ exec(command=vars.op_command ~ ' read "op://Personal/SSH Key/email"') }}
+  email = {{ secret(name="git_email") }}
   signingkey = {{ vars.home }}/.ssh/id_ed25519
 [gpg]
   format = ssh
