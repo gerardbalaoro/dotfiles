@@ -1,17 +1,17 @@
 {
   "version": 1,
   "skills": {
-    "chezmoi-workflows": {
-      "source": "terrylica/cc-skills",
+    "git-conventions": {
+      "source": "gerardbalaoro/skills",
       "sourceType": "github",
-      "skillPath": "plugins/dotfiles-tools/skills/chezmoi-workflows/SKILL.md",
-      "computedHash": "917a4d8ff0894c48702d37f7b351912eafb7f419b6b67c88e58f902e24535813"
+      "skillPath": "skills/engineering/git-conventions/SKILL.md",
+      "computedHash": "891172723e68e511b42fd3cc9cca21adb8f5013c5a6f4490edada84b11654631"
     },
-    "mise-configuration": {
-      "source": "terrylica/cc-skills",
+    "writing-documentation": {
+      "source": "gerardbalaoro/skills",
       "sourceType": "github",
-      "skillPath": "plugins/itp/skills/mise-configuration/SKILL.md",
-      "computedHash": "ca60acb79ace55f6039f898c3f3d403d7521cf2c1ada06f7a3bf4bcd22ec76fa"
+      "skillPath": "skills/engineering/writing-documentation/SKILL.md",
+      "computedHash": "e246d6a3a15047384be499e143b8cd703712b124cbf6dcc672851142fb343cee"
     }
   }
 }
