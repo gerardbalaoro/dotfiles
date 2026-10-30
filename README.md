@@ -13,6 +13,7 @@ Before starting, prepare:
 
 The bootstrap scripts install Git and mise, provision packages and tools, and pause for 1Password access before applying dotfiles.
 Sign in to 1Password and enable CLI integration, or use an authenticated CLI session on Linux.
+Windows bootstrap uses the [official mise installer](https://mise.jdx.dev/installing-mise.html#windows-script) when mise is missing or too old.
 
 **macOS / Linux / WSL**
 
