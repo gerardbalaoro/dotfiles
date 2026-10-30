@@ -1,0 +1,14 @@
+[vars]
+is_wsl = "true"
+op_command = "op.exe"
+
+[dotfile_groups.wsl]
+root = "wsl/home"
+mode = "copy"
+dot_prefix = true
+exclude = ["*.tera", ".gitkeep"]
+
+[tasks."setup:wsl"]
+description = "Configure Windows interoperability and WSL Hello sudo"
+depends = ["setup:linux"]
+run = "bash layers/wsl/setup.sh"

@@ -6,3 +6,6 @@ Thumbs.db
 .vscode/settings.json
 node_modules/
 __pycache__/
+.miserc.local.toml
+mise.local.toml
+mise.*.local.toml

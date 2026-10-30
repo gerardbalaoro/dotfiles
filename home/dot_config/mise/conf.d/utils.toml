@@ -1,8 +1,0 @@
-#:schema https://mise.jdx.dev/schema/mise.json
-
-[tools]
-chezmoi = "latest"
-github-cli="latest"
-herdr = "latest"
-"npm:varlock" = "latest"
-"npm:pm2" = "latest"

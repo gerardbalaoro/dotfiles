@@ -1,29 +1,53 @@
 #:schema https://mise.jdx.dev/schema/mise.json
-min_version = "2026.10.11"
+min_version = "2026.10.21"
 
-# The same tool declarations are deployed as global config by chezmoi.
+# Shared tools are also copied to the user's global mise configuration.
 include = [
-  "home/dot_config/mise/conf.d/dev.toml",
-  "home/dot_config/mise/conf.d/ai.toml",
-  "home/dot_config/mise/conf.d/utils.toml",
-  "bootstrap/packages.toml",
+  "layers/common/home/dot-config/mise/conf.d/dev.toml",
+  "layers/common/home/dot-config/mise/conf.d/ai.toml",
+  "layers/common/home/dot-config/mise/conf.d/utils.toml",
 ]
 
-# Match the defaults in home/dot_config/mise/config.toml on a fresh machine.
+[vars]
+home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
+is_wsl = "false"
+op_command = "op"
+
 [settings]
 minimum_release_age = "1d"
 
 [settings.npm]
 package_manager = "aube"
 
-[bootstrap.hooks]
-# Use the Homebrew CLI on both Intel and Apple Silicon Macs. mise's native
-# brew manager does not support Intel Macs.
-pre-packages = "{% if os() == 'macos' %}bash {{ config_root | quote }}/bootstrap/macos.sh{% else %}exit 0{% endif %}"
-post-packages = "{% if os() == 'linux' %}bash {{ config_root | quote }}/bootstrap/linux.sh{% else %}exit 0{% endif %}"
+[settings.dotfiles]
+root = "{{ config_root }}/layers"
+
+# Ordinary files are discovered automatically; only templates and private files
+# need entries. Every target belongs to exactly one selected layer.
+[dotfile_groups.common]
+root = "common/home"
+mode = "copy"
+dot_prefix = true
+exclude = [
+  "*.tera", ".gitkeep", "node_modules", "dist", ".git", "__pycache__", "*.pyc",
+  ".venv", ".virtualenvs", ".env", ".cache", ".coverage", "*.log",
+]
+
+[dotfile_groups.common.entries]
+"~/.gitconfig" = { mode = "template" }
+"~/.config/skillshare/config.yaml" = { mode = "template" }
+"~/.ssh" = { permissions = "0700" }
+"~/.ssh/config" = { mode = "template", permissions = "0600" }
+"~/.ssh/id_ed25519" = { mode = "template", permissions = "0600" }
+"~/.ssh/id_ed25519.pub" = { mode = "template", permissions = "0644" }
+"~/.ssh/authorized_keys" = { mode = "template", permissions = "0600" }
+"~/.ssh/allowed_signers" = { mode = "template", permissions = "0644" }
+
+[tasks."setup:common"]
+description = "Install shared fonts"
+run = "bash layers/common/setup.sh"
+run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File layers/common/setup.ps1"
 
 [tasks.bootstrap]
-description = "Apply dotfiles from this checkout after installing packages and tools"
-run = "bash bootstrap/apply.sh"
-run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File bootstrap/apply.ps1"
-
+description = "Run setup for every selected layer after packages, dotfiles and tools"
+depends = ["setup:*"]

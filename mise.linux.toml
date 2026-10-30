@@ -1,0 +1,15 @@
+include = ["layers/linux/packages.toml"]
+
+[dotfile_groups.linux]
+root = "linux/home"
+mode = "copy"
+dot_prefix = true
+exclude = ["*.tera", ".gitkeep"]
+
+[bootstrap.hooks]
+post-packages = "bash {{ config_root | quote }}/layers/linux/packages.sh{% if vars.is_wsl == 'true' %} --wsl{% endif %}"
+
+[tasks."setup:linux"]
+description = "Configure the Linux login shell"
+depends = ["setup:unix"]
+run = "bash layers/linux/setup.sh"

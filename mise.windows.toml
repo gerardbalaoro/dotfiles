@@ -1,0 +1,17 @@
+include = ["layers/windows/packages.toml"]
+
+[dotfile_groups.windows]
+root = "windows/home"
+mode = "copy"
+exclude = ["*.tera"]
+
+[dotfile_groups.windows.entries]
+"~/AppData/Local/clink/clink_settings" = { mode = "template" }
+
+[bootstrap.hooks]
+post-packages = 'powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/layers/windows/packages.ps1"'
+
+[tasks."setup:windows"]
+description = "Apply Windows preferences, desktop apps and tool shims"
+depends = ["setup:common"]
+run = "powershell -NoProfile -ExecutionPolicy Bypass -File layers/windows/setup.ps1"

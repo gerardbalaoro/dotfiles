@@ -1,0 +1,16 @@
+[dotfile_groups.unix]
+root = "unix/home"
+mode = "copy"
+dot_prefix = true
+exclude = ["*.tera"]
+
+[dotfile_groups.unix.entries]
+"~/.profile" = { mode = "template" }
+"~/.bash_profile" = { mode = "absent" }
+"~/.bash_login" = { mode = "absent" }
+"~/.zprofile" = { mode = "absent" }
+
+[tasks."setup:unix"]
+description = "Generate Bash and Zsh integrations"
+depends = ["setup:common"]
+run = "sh layers/unix/setup.sh"

@@ -1,0 +1,16 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[bootstrap.packages]
+
+# Windows applications. CLI development and AI tools live in [tools].
+"winget:chrisant996.Clink" = { version = "latest", os = "windows" }
+"winget:AgileBits.1Password" = { version = "latest", os = "windows" }
+"winget:AgileBits.1Password.CLI" = { version = "latest", os = "windows" }
+"winget:M2Team.NanaZip" = { version = "latest", os = "windows" }
+"winget:Starpine.Screenbox" = { version = "latest", os = "windows" }
+"winget:AntibodySoftware.WizTree" = { version = "latest", os = "windows" }
+"winget:LesFerch.WinSetView" = { version = "latest", os = "windows" }
+"winget:Git.Git" = { version = "latest", os = "windows" }
+"winget:Microsoft.WindowsTerminal" = { version = "latest", os = "windows" }
+"winget:Microsoft.VisualStudioCode" = { version = "latest", os = "windows" }
+"winget:SST.OpenCodeDesktop" = { version = "latest", os = "windows" }

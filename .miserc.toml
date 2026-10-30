@@ -1,0 +1,2 @@
+# Load mise.unix.toml and mise.<os>.toml alongside the shared mise.toml.
+auto_env = true

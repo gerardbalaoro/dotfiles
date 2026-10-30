@@ -1,0 +1,55 @@
+[user]
+  name = Gerard Balaoro
+  email = {{ exec(command=vars.op_command ~ ' read "op://Personal/SSH Key/email"') }}
+  signingkey = {{ vars.home }}/.ssh/id_ed25519
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = {{ vars.home }}/.ssh/allowed_signers
+[commit]
+  gpgsign = true
+[core]
+  editor = code --wait
+{% if os() == "windows" %}
+  fileMode = false
+{% endif %}
+[sequence]
+  editor = code --wait
+[init]
+  defaultBranchName = main
+[alias]
+  cm = commit
+  cmm = commit -i
+  cmf = commit --fixup
+  ca = commit --amend
+  cam = commit --amend -m
+  cane = commit --amend --no-edit
+  rsu = reset @{u}
+  rbi = rebase -i
+  rbc = rebase --continue
+  rba = rebase --abort
+  rbs = rebase --autosquash
+  co = checkout
+  st = status
+  br = branch
+  lo = log --oneline --graph --decorate
+  stu = stash --include-untracked
+  stp = stash pop
+  psf = push --force-with-lease
+{% if os() == "linux" %}
+{% if vars.is_wsl == "true" %}
+[credential]
+  helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+{% endif %}
+{% endif %}
+{% if os() == "macos" %}
+[credential]
+  helper = osxkeychain
+{% endif %}
+[push]
+  autoSetupRemote = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true

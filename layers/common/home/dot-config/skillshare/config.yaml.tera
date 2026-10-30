@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/runkids/skillshare/main/schemas/config.schema.json
+sources:
+  skills: {{ (vars.home ~ "/.config/skillshare/skills") | json_encode() }}
+  agents: {{ (vars.home ~ "/.config/skillshare/agents") | json_encode() }}
+mode: merge
+targets:
+  universal:
+    skills:
+      path: {{ (vars.home ~ "/.agents/skills") | json_encode() }}
+ignore:
+  - .DS_Store
+  - .git/
+  - __pycache__/
+audit:
+  block_threshold: CRITICAL
