@@ -9,9 +9,14 @@ exclude = ["*.tera"]
 "~/AppData/Local/clink/clink_settings" = { mode = "template" }
 
 [bootstrap.hooks]
-post-packages = 'powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/layers/windows/packages.ps1"'
+# Native launchers otherwise pass PowerShell 7's module paths to Windows PowerShell.
+post-packages = 'set "PSModulePath=" && powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/layers/windows/packages.ps1"'
+
+[tasks."setup:common".env]
+PSModulePath = false
 
 [tasks."setup:windows"]
 description = "Apply Windows preferences, desktop apps and tool shims"
 depends = ["setup:common"]
+env = { PSModulePath = false }
 run = "powershell -NoProfile -ExecutionPolicy Bypass -File layers/windows/setup.ps1"
