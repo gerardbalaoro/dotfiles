@@ -82,7 +82,8 @@ fi
 if [ -n "$source_directory" ]; then
   mise -C "$source_directory" trust
 fi
-bootstrap --skip dotfiles,task --update
+# Prompts must not consume script lines when this script is piped into sh.
+bootstrap --yes --skip dotfiles,task --update
 if [ -z "$source_directory" ]; then
   source_directory="$bootstrap_directory"
   mise -C "$source_directory" trust
@@ -105,5 +106,5 @@ if ! command -v "$op_command" >/dev/null 2>&1; then
   exit 1
 fi
 echo 'Grant 1Password access to Personal/SSH Key when prompted.'
-mise -C "$source_directory" exec -- fnox exec --only 'DOTFILES_*' -- mise -C "$source_directory" bootstrap
+mise -C "$source_directory" exec -- fnox exec --only 'DOTFILES_*' -- mise -C "$source_directory" bootstrap --yes
 echo 'Setup complete. Open a new terminal to activate your tools.'
