@@ -11,17 +11,30 @@ elif [[ -x /usr/local/bin/brew ]]; then
 fi
 
 if command -v oh-my-posh >/dev/null; then
+  echo 'Fetching font archives with Git LFS...'
   git -C "$repository" lfs install --local
   git -C "$repository" lfs pull
 
   checksum="$(cksum "$repository"/layers/common/fonts/*.zip "$0")"
   if [[ -f "$state/fonts.cksum" ]] && [[ "$(cat "$state/fonts.cksum")" == "$checksum" ]]; then
+    echo 'Fonts are already installed.'
     exit 0
+  fi
+
+  # Older releases need --headless; version 30 removed the font installer TUI.
+  font_help="$(oh-my-posh font install --help)"
+  font_command=(oh-my-posh font install)
+  if [[ "$font_help" == *"--headless"* ]]; then
+    font_command+=(--headless)
+  elif [[ "$font_help" != *"font install <font>"* ]]; then
+    echo 'Update Oh My Posh to a release with noninteractive font installation.' >&2
+    exit 1
   fi
 
   fonts=("CommitMono" "CommitMono_NerdFont")
   for font in "${fonts[@]}"; do
-    oh-my-posh font install "$repository/layers/common/fonts/$font.zip"
+    echo "Installing $font..."
+    "${font_command[@]}" "$repository/layers/common/fonts/$font.zip"
   done
   mkdir -p "$state"
   printf '%s\n' "$checksum" > "$state/fonts.cksum"

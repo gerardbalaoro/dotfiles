@@ -6,6 +6,7 @@ $state = Join-Path $stateRoot 'dotfiles'
 $marker = Join-Path $state 'fonts.sha256'
 
 if (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue) {
+    Write-Host 'Fetching font archives with Git LFS...'
     git -C $repository lfs install --local
     if ($LASTEXITCODE -ne 0) { throw 'Git LFS initialization failed' }
     git -C $repository lfs pull
@@ -15,12 +16,25 @@ if (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue) {
     $paths = @($PSCommandPath) + @($fonts | ForEach-Object { Join-Path $repository "layers/common/fonts/$_.zip" })
     $checksum = ($paths | ForEach-Object { Get-FileHash -LiteralPath $_ -Algorithm SHA256 } | ForEach-Object { $_.Hash }) -join "`n"
     if ((Test-Path $marker) -and ((Get-Content $marker -Raw).Trim() -eq $checksum)) {
+        Write-Host 'Fonts are already installed.'
         return
     }
+
+    # Older releases need --headless; version 30 removed the font installer TUI.
+    $fontHelp = (& oh-my-posh font install --help) -join "`n"
+    if ($LASTEXITCODE -ne 0) { throw 'Could not inspect Oh My Posh font installation options' }
+    $fontOptions = @()
+    if ($fontHelp.Contains('--headless')) {
+        $fontOptions += '--headless'
+    } elseif (-not $fontHelp.Contains('font install <font>')) {
+        throw 'Update Oh My Posh to a release with noninteractive font installation.'
+    }
+
     foreach ($font in $fonts) {
         $fontPath = Join-Path $repository "layers/common/fonts/$font.zip"
         if (Test-Path $fontPath) {
-            oh-my-posh font install $fontPath
+            Write-Host "Installing $font..."
+            oh-my-posh font install $fontPath @fontOptions
             if ($LASTEXITCODE -ne 0) { throw "Font installation failed: $font" }
         } else {
             throw "Font archive missing: $fontPath"
