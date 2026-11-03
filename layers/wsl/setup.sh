@@ -5,8 +5,15 @@ install_wsl_hello_sudo() {
   # Preserve an existing PAM installation on repeated bootstrap runs.
   if [ -f /etc/pam_wsl_hello/config ] &&
      { [ -f /lib/x86_64-linux-gnu/security/pam_wsl_hello.so ] ||
-       [ -f /lib/security/pam_wsl_hello.so ]; }; then
+       [ -f /lib/security/pam_wsl_hello.so ] ||
+       [ -f /lib64/security/pam_wsl_hello.so ] ||
+       [ -f /usr/lib64/security/pam_wsl_hello.so ]; }; then
     return 0
+  fi
+
+  if ! { : </dev/tty; } 2>/dev/null; then
+    echo 'Run bootstrap from an interactive terminal to enroll WSL Hello sudo.' >&2
+    return 1
   fi
 
   local install="$HOME/.local/share/wsl-hello-sudo"
@@ -22,7 +29,8 @@ install_wsl_hello_sudo() {
 
   rm -f "$archive"
 
-  (cd "$install" && ./install.sh)
+  # A curl | sh bootstrap supplies script text on stdin, not prompt answers.
+  (cd "$install" && ./install.sh </dev/tty)
 }
 
 install_wsl_hello_sudo

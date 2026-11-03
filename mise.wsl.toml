@@ -13,4 +13,6 @@ exclude = ["*.tera", ".gitkeep"]
 [tasks."setup:wsl"]
 description = "Configure Windows interoperability and WSL Hello sudo"
 depends = ["setup:linux"]
+# Enrollment requires path selection and Windows Hello authentication.
+raw = true
 run = "bash layers/wsl/setup.sh"
