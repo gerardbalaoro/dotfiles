@@ -1,0 +1,9 @@
+[user]
+  email = {{ secret(name="git_email") }}
+  signingkey = {{ vars.home }}/.ssh/id_ed25519
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = {{ vars.home }}/.ssh/allowed_signers
+[commit]
+  gpgsign = true

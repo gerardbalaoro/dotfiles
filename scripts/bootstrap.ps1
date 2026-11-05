@@ -82,18 +82,5 @@ if ($sourceDirectory) {
     & mise -C $sourceDirectory trust
     if ($LASTEXITCODE -ne 0) { throw 'Could not trust the local checkout' }
 }
-Invoke-Bootstrap -BootstrapArguments @('--skip', 'dotfiles,task', '--update')
-if (-not $sourceDirectory) {
-    $sourceDirectory = $bootstrapDirectory
-    & mise -C $sourceDirectory trust
-    if ($LASTEXITCODE -ne 0) { throw 'Could not trust the bootstrap checkout' }
-}
-Update-ProcessPath
-
-if (-not (Get-Command op -ErrorAction SilentlyContinue)) {
-    throw '1Password CLI is not available on PATH after provisioning'
-}
-Write-Host 'Grant 1Password access to Personal/SSH Key when prompted.'
-& mise -C $sourceDirectory exec -- fnox exec --only 'DOTFILES_*' -- mise -C $sourceDirectory bootstrap
-if ($LASTEXITCODE -ne 0) { throw 'Authenticated bootstrap failed' }
-Write-Host 'Setup complete. Open a new terminal to activate your tools.'
+Invoke-Bootstrap -BootstrapArguments @('--update')
+Write-Host 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'

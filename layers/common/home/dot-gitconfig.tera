@@ -1,13 +1,8 @@
+[include]
+  path = {{ vars.home }}/.config/git/identity
 [user]
   name = Gerard Balaoro
-  email = {{ secret(name="git_email") }}
-  signingkey = {{ vars.home }}/.ssh/id_ed25519
-[gpg]
-  format = ssh
-[gpg "ssh"]
-  allowedSignersFile = {{ vars.home }}/.ssh/allowed_signers
-[commit]
-  gpgsign = true
+  useConfigOnly = true
 [core]
   editor = code --wait
 {% if os() == "windows" %}

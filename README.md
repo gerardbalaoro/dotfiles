@@ -6,14 +6,11 @@ Packages, development tools, and dotfiles managed with [mise bootstrap](https://
 
 Before starting, prepare:
 
-- **1Password:** an account containing the `Personal/SSH Key` item.
 - **macOS / Linux:** curl and sudo access.
 - **Windows:** WinGet and administrator access when requested.
-- **WSL:** the Windows 1Password app and CLI, with `op.exe` available on WSL's PATH.
 
-The bootstrap scripts install Git and mise, provision packages and tools, and request 1Password access before applying dotfiles.
-Sign in to 1Password and enable CLI integration, or use an authenticated CLI session on Linux.
-Secrets are declared in [fnox.toml](fnox.toml) and supplied through [fnox's 1Password provider](https://fnox.jdx.dev/providers/1password.html).
+The bootstrap scripts install Git and mise, then provision packages, tools, and ordinary dotfiles.
+Bootstrap does not require access to secrets. Git identity and SSH keys are restored separately.
 Windows bootstrap uses the [official mise installer](https://mise.jdx.dev/installing-mise.html#windows-script) when mise is missing or too old.
 
 **macOS / Linux / WSL**
@@ -31,6 +28,12 @@ irm https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/bootst
 On macOS, complete Xcode Command Line Tools installation when prompted.
 Open a new terminal after setup to activate tools and shell integrations.
 
+With mise already installed, bootstrap directly:
+
+```sh
+mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git
+```
+
 From an existing checkout, use its bootstrap script:
 
 ```sh
@@ -40,6 +43,24 @@ From an existing checkout, use its bootstrap script:
 ```powershell
 .\scripts\bootstrap.ps1
 ```
+
+## Identity
+
+After bootstrap, sign in to 1Password and enable CLI integration, or authenticate the CLI on Linux.
+The account must contain the `Personal/SSH Key` item referenced in [fnox.toml](fnox.toml).
+On WSL, install the Windows 1Password app and CLI, with `op.exe` available on PATH.
+
+From any directory, restore Git identity, signing configuration, and SSH keys:
+
+```sh
+mise run dotfiles:identity
+```
+
+The task fetches values through fnox before applying only the identity files.
+Authentication failures leave those files untouched.
+Ordinary bootstrap and updates leave restored identity files and keys in place.
+Existing machines need one identity restore after adopting this split to populate the new Git identity include.
+On a new machine, configure identity before committing or using SSH authentication.
 
 ## Layers
 
@@ -82,15 +103,14 @@ After bootstrap, update from any directory:
 mise run dotfiles:update
 ```
 
-The task pulls the checkout it was deployed from and reapplies bootstrap through 1Password.
-Sign in to 1Password before running it.
+The task pulls the checkout it was deployed from and reapplies bootstrap without accessing secrets.
 It works with remote bootstrap checkouts and manual clones.
 
 On existing machines, install the task once from the dotfiles checkout:
 
 ```sh
 git pull --ff-only
-mise exec -- fnox exec --only 'DOTFILES_*' -- mise bootstrap --update
+mise bootstrap --update
 ```
 
 Bootstrap installs missing packages and tools.
@@ -110,7 +130,7 @@ From the checkout, open a file's source and apply changes:
 
 ```sh
 mise dot edit ~/.zshrc
-mise exec -- fnox exec --only 'DOTFILES_*' -- mise dot apply
+mise dot apply
 ```
 
 On WSL, mise adds the layer's `op` wrapper to PATH so fnox uses the Windows `op.exe`.
@@ -125,5 +145,5 @@ mise dot apply --dry-run
 ```
 
 Dry runs print setup commands without executing their contents or reading 1Password values.
-Status and diff commands that render templates also need the `mise exec -- fnox exec --only 'DOTFILES_*' --` prefix.
-Fnox supplies values to the subprocess; `fnox.toml` contains only references.
+The explicit `identity` environment contains secret-backed templates; ordinary previews do not load it.
+Fnox supplies identity values to the subprocess; `fnox.toml` contains only references.

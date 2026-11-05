@@ -78,33 +78,8 @@ if ! command -v mise >/dev/null 2>&1 ||
   hash -r
 fi
 
-# Install fnox and 1Password before resolving bootstrap secrets.
 if [ -n "$source_directory" ]; then
   mise -C "$source_directory" trust
 fi
-# Prompts must not consume script lines when this script is piped into sh.
-bootstrap --yes --skip dotfiles,task --update
-if [ -z "$source_directory" ]; then
-  source_directory="$bootstrap_directory"
-  mise -C "$source_directory" trust
-fi
-
-if [ "$(uname -s)" = Darwin ]; then
-  if [ -x /opt/homebrew/bin/brew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  elif [ -x /usr/local/bin/brew ]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-  fi
-fi
-
-op_command=op
-if [ "$(uname -s)" = Linux ] && grep -qi microsoft /proc/version; then
-  op_command=op.exe
-fi
-if ! command -v "$op_command" >/dev/null 2>&1; then
-  echo "$op_command is required; on WSL, install the Windows 1Password CLI and expose it on PATH." >&2
-  exit 1
-fi
-echo 'Grant 1Password access to Personal/SSH Key when prompted.'
-mise -C "$source_directory" exec -- fnox exec --only 'DOTFILES_*' -- mise -C "$source_directory" bootstrap --yes
-echo 'Setup complete. Open a new terminal to activate your tools.'
+bootstrap --yes --update
+echo 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'

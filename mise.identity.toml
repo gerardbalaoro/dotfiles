@@ -1,0 +1,16 @@
+[bootstrap.secrets]
+git_email = "DOTFILES_GIT_EMAIL"
+ssh_public_key = "DOTFILES_SSH_PUBLIC_KEY"
+ssh_private_key = "DOTFILES_SSH_PRIVATE_KEY"
+
+[dotfile_groups.identity]
+root = "identity/home"
+mode = "copy"
+dot_prefix = true
+exclude = ["*.tera"]
+
+[dotfile_groups.identity.entries]
+"~/.config/git/identity" = { mode = "template", permissions = "0600" }
+"~/.ssh/id_ed25519" = { mode = "template", permissions = "0600" }
+"~/.ssh/id_ed25519.pub" = { mode = "template", permissions = "0644" }
+"~/.ssh/allowed_signers" = { mode = "template", permissions = "0644" }
