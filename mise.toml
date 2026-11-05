@@ -3,9 +3,9 @@ min_version = "2026.10.21"
 
 # Shared tools are also copied to the user's global mise configuration.
 include = [
-  "layers/common/home/dot-config/mise/conf.d/dev.toml",
-  "layers/common/home/dot-config/mise/conf.d/ai.toml",
-  "layers/common/home/dot-config/mise/conf.d/utils.toml",
+  "tools/mise/conf.d/dev.toml",
+  "tools/mise/conf.d/ai.toml",
+  "tools/mise/conf.d/utils.toml",
 ]
 
 [vars]
@@ -20,32 +20,36 @@ minimum_release_age = "1d"
 package_manager = "aube"
 
 [settings.dotfiles]
-root = "{{ config_root }}/layers"
+root = "{{ config_root }}"
 
-# Ordinary files are discovered automatically; only templates and private files
-# need entries. Every target belongs to exactly one selected layer.
-[dotfile_groups.common]
-root = "common/home"
+# Tool bundles copy ordinary files; templates have explicit targets.
+[dotfile_groups.mise]
+root = "tools/mise"
+target = "~/.config/mise"
+mode = "copy"
+exclude = ["*.tera", "mise.lock"]
+
+[dotfile_groups.mise.entries]
+"~/.config/mise/conf.d/dotfiles.toml" = { mode = "template" }
+
+[dotfile_groups.skillshare]
+root = "tools/skillshare"
+target = "~/.config/skillshare"
 mode = "copy"
 dot_prefix = true
-exclude = [
-  "*.tera", ".gitkeep", "node_modules", "dist", ".git", "__pycache__", "*.pyc",
-  ".venv", ".virtualenvs", ".env", ".cache", ".coverage", "*.log",
-]
+exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
 
-[dotfile_groups.common.entries]
-"~/.config/mise/conf.d/dotfiles.toml" = { mode = "template" }
-"~/.gitconfig" = { mode = "template" }
+[dotfile_groups.skillshare.entries]
 "~/.config/skillshare/config.yaml" = { mode = "template" }
-"~/.ssh" = { permissions = "0700" }
-"~/.ssh/config" = { mode = "template", permissions = "0600" }
-"~/.ssh/authorized_keys" = { mode = "template", permissions = "0600" }
 
-[tasks."setup:common"]
-description = "Install shared fonts"
-run = "bash layers/common/setup.sh"
-run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File layers/common/setup.ps1"
+[dotfiles]
+"~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }
+"~/.config/git/config" = { source = "tools/git/config.tera", mode = "template" }
+"~/.config/oh-my-posh/main.omp.json" = { source = "tools/oh-my-posh/main.omp.json", mode = "copy" }
+"~/.ssh" = { permissions = "0700" }
+"~/.ssh/config" = { source = "tools/ssh/config.tera", mode = "template", permissions = "0600" }
+"~/.ssh/authorized_keys" = { source = "tools/ssh/authorized_keys.tera", mode = "template", permissions = "0600" }
 
 [tasks.bootstrap]
-description = "Run setup for every selected layer after packages, dotfiles and tools"
+description = "Run setup for the selected machine environments"
 depends = ["setup:*"]

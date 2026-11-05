@@ -2,17 +2,11 @@
 is_wsl = "true"
 
 [env]
-_.path = ["{{ config_root }}/layers/wsl/bin"]
-
-[dotfile_groups.wsl]
-root = "wsl/home"
-mode = "copy"
-dot_prefix = true
-exclude = ["*.tera", ".gitkeep"]
+_.path = ["{{ config_root }}/environments/wsl/bin"]
 
 [tasks."setup:wsl"]
 description = "Configure Windows interoperability and WSL Hello sudo"
 depends = ["setup:linux"]
 # Enrollment requires path selection and Windows Hello authentication.
 raw = true
-run = "bash layers/wsl/setup.sh"
+run = "bash environments/wsl/setup.sh"

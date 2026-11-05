@@ -1,8 +1,3 @@
-[dotfile_groups.macos]
-root = "macos/home"
-mode = "copy"
-dot_prefix = true
-
 [bootstrap.hooks]
 # The Homebrew CLI supports both Intel and Apple Silicon Macs.
-pre-packages = "bash {{ config_root | quote }}/layers/macos/packages.sh"
+pre-packages = "bash {{ config_root | quote }}/environments/macos/packages.sh"

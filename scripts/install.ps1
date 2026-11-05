@@ -5,15 +5,10 @@ $minimumMiseVersion = [version]'2026.10.21'
 $sourceDirectory = $null
 if ($PSScriptRoot) {
     $candidate = Split-Path -Parent $PSScriptRoot
-    if ((Test-Path (Join-Path $candidate 'mise.toml')) -and (Test-Path (Join-Path $candidate 'layers/common/home'))) {
+    if ((Test-Path (Join-Path $candidate 'mise.toml')) -and (Test-Path (Join-Path $candidate 'tools/mise'))) {
         $sourceDirectory = $candidate
     }
 }
-$miseDataDirectory = if ($env:MISE_DATA_DIR) { $env:MISE_DATA_DIR }
-    elseif ($env:XDG_DATA_HOME) { Join-Path $env:XDG_DATA_HOME 'mise' }
-    else { Join-Path $env:LOCALAPPDATA 'mise' }
-$bootstrapDirectory = Join-Path $miseDataDirectory 'bootstrap-repo'
-
 function Update-ProcessPath {
     $env:Path = @(
         $env:Path
@@ -56,7 +51,7 @@ function Invoke-Bootstrap {
     if ($sourceDirectory) {
         & mise -C $sourceDirectory bootstrap @BootstrapArguments
     } else {
-        & mise bootstrap --from $repositoryUrl --from-dir $bootstrapDirectory @BootstrapArguments
+        & mise bootstrap --from $repositoryUrl @BootstrapArguments
     }
     if ($LASTEXITCODE -ne 0) { throw 'Bootstrap failed' }
 }
@@ -78,9 +73,5 @@ if ($LASTEXITCODE -ne 0 -or [version]$miseVersion -lt $minimumMiseVersion) {
     throw "mise $minimumMiseVersion or newer is required; check which mise is on PATH"
 }
 
-if ($sourceDirectory) {
-    & mise -C $sourceDirectory trust
-    if ($LASTEXITCODE -ne 0) { throw 'Could not trust the local checkout' }
-}
-Invoke-Bootstrap -BootstrapArguments @('--update')
+Invoke-Bootstrap -BootstrapArguments (@('--yes', '--update') + $args)
 Write-Host 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'

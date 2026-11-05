@@ -1,0 +1,28 @@
+[bootstrap.packages]
+"brew-cask:1password" = { version = "latest", os = "macos" }
+"brew-cask:ghostty" = { version = "latest", os = "macos" }
+"brew-cask:visual-studio-code" = { version = "latest", os = "macos" }
+"winget:AgileBits.1Password" = { version = "latest", os = "windows" }
+"winget:M2Team.NanaZip" = { version = "latest", os = "windows" }
+"winget:Starpine.Screenbox" = { version = "latest", os = "windows" }
+"winget:AntibodySoftware.WizTree" = { version = "latest", os = "windows" }
+"winget:LesFerch.WinSetView" = { version = "latest", os = "windows" }
+"winget:Microsoft.WindowsTerminal" = { version = "latest", os = "windows" }
+"winget:Microsoft.VisualStudioCode" = { version = "latest", os = "windows" }
+"winget:SST.OpenCodeDesktop" = { version = "latest", os = "windows" }
+
+[dotfiles]
+"~/.config/ghostty" = { source = "tools/ghostty", mode = "copy", variants = [{ os = "macos" }] }
+"~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" = { source = "tools/windows-terminal/settings.json", mode = "copy", variants = [{ os = "windows" }] }
+
+[tasks."setup:fonts"]
+description = "Install Oh My Posh fonts"
+run = "bash tools/oh-my-posh/setup.sh"
+run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File tools/oh-my-posh/setup.ps1"
+env = { PSModulePath = false }
+
+[tasks."setup:desktop"]
+description = "Apply desktop preferences and applications"
+run = []
+run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File environments/windows/desktop.ps1"
+env = { PSModulePath = false }

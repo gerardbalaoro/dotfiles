@@ -1,22 +1,15 @@
-include = ["layers/windows/packages.toml"]
+include = ["environments/windows/packages.toml"]
 
-[dotfile_groups.windows]
-root = "windows/home"
-mode = "copy"
-exclude = ["*.tera"]
-
-[dotfile_groups.windows.entries]
-"~/AppData/Local/clink/clink_settings" = { mode = "template" }
+[dotfiles]
+"~/AppData/Local/clink/clink_settings" = { source = "tools/clink/settings.tera", mode = "template" }
+"~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1" = { source = "tools/powershell/profile.ps1", mode = "copy" }
+"~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1" = { source = "tools/powershell/profile.windows-powershell.ps1", mode = "copy" }
 
 [bootstrap.hooks]
 # Native launchers otherwise pass PowerShell 7's module paths to Windows PowerShell.
-post-packages = 'set "PSModulePath=" && powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/layers/windows/packages.ps1"'
-
-[tasks."setup:common".env]
-PSModulePath = false
+post-packages = 'set "PSModulePath=" && powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/environments/windows/packages.ps1"'
 
 [tasks."setup:windows"]
-description = "Apply Windows preferences, desktop apps and tool shims"
-depends = ["setup:common"]
+description = "Configure Windows tool shims"
 env = { PSModulePath = false }
-run = "powershell -NoProfile -ExecutionPolicy Bypass -File layers/windows/setup.ps1"
+run = "powershell -NoProfile -ExecutionPolicy Bypass -File environments/windows/setup.ps1"

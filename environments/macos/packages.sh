@@ -21,6 +21,6 @@ for formula in curl wget zip unzip xz git git-lfs tmux fzf zoxide; do
   "$brew_bin" list --formula "$formula" >/dev/null 2>&1 || "$brew_bin" install "$formula"
 done
 
-for cask in 1password 1password-cli jandedobbeleer/oh-my-posh/oh-my-posh ghostty visual-studio-code; do
+for cask in 1password-cli jandedobbeleer/oh-my-posh/oh-my-posh; do
   "$brew_bin" list --cask "$cask" >/dev/null 2>&1 || "$brew_bin" install --cask "$cask"
 done

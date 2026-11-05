@@ -9,39 +9,39 @@ Before starting, prepare:
 - **macOS / Linux:** curl and sudo access.
 - **Windows:** WinGet and administrator access when requested.
 
-The bootstrap scripts install Git and mise, then provision packages, tools, and ordinary dotfiles.
+The installers install Git and mise, then provision packages, tools, and ordinary dotfiles.
 Bootstrap does not require access to secrets. Git identity and SSH keys are restored separately.
 Windows bootstrap uses the [official mise installer](https://mise.jdx.dev/installing-mise.html#windows-script) when mise is missing or too old.
 
 **macOS / Linux / WSL**
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/bootstrap.sh | sh
+curl -fsSL https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/install.sh | sh
 ```
 
 **Windows (PowerShell)**
 
 ```powershell
-irm https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/bootstrap.ps1 | iex
+irm https://raw.githubusercontent.com/gerardbalaoro/dotfiles/main/scripts/install.ps1 | iex
 ```
 
 On macOS, complete Xcode Command Line Tools installation when prompted.
 Open a new terminal after setup to activate tools and shell integrations.
 
-With mise already installed, bootstrap directly:
+With mise already installed, select machine roles as described below, then bootstrap directly:
 
 ```sh
 mise bootstrap --from https://github.com/gerardbalaoro/dotfiles.git
 ```
 
-From an existing checkout, use its bootstrap script:
+From an existing checkout, use its installer:
 
 ```sh
-./scripts/bootstrap.sh
+./scripts/install.sh
 ```
 
 ```powershell
-.\scripts\bootstrap.ps1
+.\scripts\install.ps1
 ```
 
 ## Identity
@@ -59,41 +59,64 @@ mise run dotfiles:identity
 The task fetches values through fnox before applying only the identity files.
 Authentication failures leave those files untouched.
 Ordinary bootstrap and updates leave restored identity files and keys in place.
+Git settings already present in `~/.gitconfig` take precedence over shared settings; remove obsolete overrides manually when needed.
 Existing machines need one identity restore after adopting this split to populate the new Git identity include.
 On a new machine, configure identity before committing or using SSH authentication.
 
-## Layers
+## Structure
 
-Each layer contains a `home/` tree and any packages or setup scripts it needs:
+Configuration lives under `tools/`; platform provisioning lives under `environments/`:
 
 ```text
-layers/
-  common/   Shared tools, Git/SSH, skills, application settings, and fonts
-  unix/     Bash, Zsh, .profile, and shell integrations
-  linux/    Linux packages, native integrations, and login shell
-  macos/    Homebrew and Ghostty
-  windows/  WinGet, PowerShell/Clink, desktop apps, and Windows preferences
-  wsl/      Windows 1Password integration and WSL Hello sudo
-scripts/
-  bootstrap.sh
-  bootstrap.ps1
+tools/
+  git/                Shared Git settings and identity template
+  ssh/                SSH configuration and key templates
+  mise/               Global mise settings, tools, and dotfiles tasks
+  shell/              Bash, Zsh, and shared Unix environment
+  powershell/         PowerShell profiles
+  clink/              Clink settings
+  ghostty/            Ghostty configuration and themes
+  windows-terminal/   Windows Terminal settings
+  oh-my-posh/         Prompt theme, font archives, and font setup
+  skillshare/         Skillshare configuration, skills, and agents
+  agents/             Shared agent instructions
+environments/
+  linux/              Linux packages and setup
+  macos/              Homebrew setup
+  windows/            Windows packages, preferences, and setup
+  wsl/                Windows interoperability and WSL Hello sudo
+scripts/              Installers and update commands
 ```
 
-| Environment | Selected Layers |
-| --- | --- |
-| Native Linux | common + unix + linux |
-| WSL | common + unix + linux + wsl |
-| macOS | common + unix + macos |
-| Windows | common + windows |
+The root `mise.toml` maps shared files into place.
+Root `mise.<os>.toml` entrypoints select platform packages and configuration automatically.
+Unix shell configuration loads automatically on Linux and macOS.
+All configuration is copied; templates render machine-specific values.
+Shared Git settings deploy to `~/.config/git/config`; `~/.gitconfig` remains available for local settings and credential helpers.
 
-Shared rules live in [mise.toml](mise.toml); `mise.<layer>.toml` defines layer-specific rules.
-Mise selects Unix and OS layers automatically.
-WSL bootstrap saves its selection in the checkout's ignored `.miserc.local.toml`.
-If that file already exists, add `wsl` to its `env` list.
-You can also select WSL explicitly with `mise -E wsl ...`.
+## Machine Settings
 
-Layers are additive, and each target file belongs to one layer.
-Keep small platform differences in a shared template to avoid competing copies.
+Base bootstrap installs CLI tools and configuration.
+Select `desktop` to add GUI applications, desktop preferences, terminal configuration, and Oh My Posh fonts.
+Windows applications and macOS Ghostty, VS Code, and 1Password desktop are included in that role.
+Existing Linux package support remains unchanged.
+
+Save the choice in `~/.config/mise/miserc.local.toml` on each workstation:
+
+```toml
+env = ["desktop"]
+```
+
+This file stays on the machine; bootstrap does not overwrite it.
+For one run, select the role explicitly:
+
+```sh
+mise -E desktop bootstrap
+```
+
+WSL setup saves `wsl` in the checkout's ignored `.miserc.local.toml`.
+For direct setup on WSL, select it with `mise -E wsl bootstrap`.
+The `identity` environment is selected only by `dotfiles:identity`; do not save it as a default.
 
 ## Updates
 
@@ -119,10 +142,10 @@ On macOS, run `brew upgrade` separately.
 
 ## Dotfile Changes
 
-Edit sources under `layers/<layer>/home/`.
-Ordinary files deploy automatically through [dotfile groups](https://mise.jdx.dev/dotfiles/groups.html).
-For example, `layers/unix/home/dot-bashrc` becomes `~/.bashrc`.
-Declare Tera templates, permission exceptions, and file removals in the corresponding mise config.
+Edit configuration in its tool directory, then apply through mise.
+For example, `tools/shell/bashrc` deploys to `~/.bashrc`.
+The root mise files declare destinations, templates, permissions, and platform conditions.
+The mise and Skillshare bundles deploy ordinary files through [dotfile groups](https://mise.jdx.dev/dotfiles/groups.html).
 
 Dotfiles are copied.
 Reapplying replaces direct edits to managed targets and preserves unmanaged files.

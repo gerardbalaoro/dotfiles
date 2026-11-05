@@ -5,11 +5,10 @@ repository_url="${DOTFILES_REPOSITORY:-https://github.com/gerardbalaoro/dotfiles
 source_directory=
 if [ -f "$0" ]; then
   candidate="$(cd "$(dirname "$0")/.." && pwd)"
-  if [ -f "$candidate/mise.toml" ] && [ -d "$candidate/layers/common/home" ]; then
+  if [ -f "$candidate/mise.toml" ] && [ -d "$candidate/tools/mise" ]; then
     source_directory="$candidate"
   fi
 fi
-bootstrap_directory="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/bootstrap-repo"
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 # Platform configs must be selected even before --from has cloned .miserc.toml.
 export MISE_AUTO_ENV=true
@@ -26,14 +25,6 @@ as_root() {
     "$@"
   else
     sudo "$@"
-  fi
-}
-
-bootstrap() {
-  if [ -n "$source_directory" ]; then
-    mise -C "$source_directory" bootstrap "$@"
-  else
-    mise bootstrap --from "$repository_url" --from-dir "$bootstrap_directory" "$@"
   fi
 }
 
@@ -65,7 +56,7 @@ case "$(uname -s)" in
       fi
     fi
     ;;
-  *) echo 'This bootstrap script supports macOS and Linux.' >&2; exit 1 ;;
+  *) echo 'This installer supports macOS and Linux.' >&2; exit 1 ;;
 esac
 
 git --version >/dev/null
@@ -79,7 +70,8 @@ if ! command -v mise >/dev/null 2>&1 ||
 fi
 
 if [ -n "$source_directory" ]; then
-  mise -C "$source_directory" trust
+  mise -C "$source_directory" bootstrap --yes --update "$@"
+else
+  mise bootstrap --from "$repository_url" --yes --update "$@"
 fi
-bootstrap --yes --update
 echo 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'

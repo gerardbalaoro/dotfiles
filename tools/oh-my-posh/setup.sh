@@ -15,7 +15,7 @@ if command -v oh-my-posh >/dev/null; then
   git -C "$repository" lfs install --local
   git -C "$repository" lfs pull
 
-  checksum="$(cksum "$repository"/layers/common/fonts/*.zip "$0")"
+  checksum="$(cksum "$repository"/tools/oh-my-posh/fonts/*.zip "$0")"
   if [[ -f "$state/fonts.cksum" ]] && [[ "$(cat "$state/fonts.cksum")" == "$checksum" ]]; then
     echo 'Fonts are already installed.'
     exit 0
@@ -34,7 +34,7 @@ if command -v oh-my-posh >/dev/null; then
   fonts=("CommitMono" "CommitMono_NerdFont")
   for font in "${fonts[@]}"; do
     echo "Installing $font..."
-    "${font_command[@]}" "$repository/layers/common/fonts/$font.zip"
+    "${font_command[@]}" "$repository/tools/oh-my-posh/fonts/$font.zip"
   done
   mkdir -p "$state"
   printf '%s\n' "$checksum" > "$state/fonts.cksum"

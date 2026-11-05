@@ -13,7 +13,7 @@ if (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue) {
     if ($LASTEXITCODE -ne 0) { throw 'Git LFS font download failed' }
 
     $fonts = @("CommitMono", "CommitMono_NerdFont")
-    $paths = @($PSCommandPath) + @($fonts | ForEach-Object { Join-Path $repository "layers/common/fonts/$_.zip" })
+    $paths = @($PSCommandPath) + @($fonts | ForEach-Object { Join-Path $repository "tools/oh-my-posh/fonts/$_.zip" })
     $checksum = ($paths | ForEach-Object { Get-FileHash -LiteralPath $_ -Algorithm SHA256 } | ForEach-Object { $_.Hash }) -join "`n"
     if ((Test-Path $marker) -and ((Get-Content $marker -Raw).Trim() -eq $checksum)) {
         Write-Host 'Fonts are already installed.'
@@ -31,7 +31,7 @@ if (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue) {
     }
 
     foreach ($font in $fonts) {
-        $fontPath = Join-Path $repository "layers/common/fonts/$font.zip"
+        $fontPath = Join-Path $repository "tools/oh-my-posh/fonts/$font.zip"
         if (Test-Path $fontPath) {
             Write-Host "Installing $font..."
             oh-my-posh font install $fontPath @fontOptions
