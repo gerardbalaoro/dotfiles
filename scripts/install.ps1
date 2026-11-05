@@ -73,5 +73,19 @@ if ($LASTEXITCODE -ne 0 -or [version]$miseVersion -lt $minimumMiseVersion) {
     throw "mise $minimumMiseVersion or newer is required; check which mise is on PATH"
 }
 
+# Save defaults once; miserc.local.toml and explicit mise selections override them.
+$miseConfigDirectory = if ($env:MISE_CONFIG_DIR) { $env:MISE_CONFIG_DIR }
+    elseif ($env:XDG_CONFIG_HOME) { Join-Path $env:XDG_CONFIG_HOME 'mise' }
+    else { Join-Path $HOME '.config/mise' }
+$machineConfig = Join-Path $miseConfigDirectory 'miserc.toml'
+if (-not (Test-Path -LiteralPath $machineConfig)) {
+    # Server Core has no Explorer shell. Containers do not get desktop setup.
+    $desktop = (Test-Path (Join-Path $env:SystemRoot 'explorer.exe')) -and
+        -not (Test-Path 'HKLM:\SYSTEM\CurrentControlSet\Control\ContainerType')
+    $selection = if ($desktop) { 'env = ["desktop"]' } else { 'env = []' }
+    New-Item -ItemType Directory -Path $miseConfigDirectory -Force | Out-Null
+    Set-Content -LiteralPath $machineConfig -Value $selection -Encoding Ascii
+}
+
 Invoke-Bootstrap -BootstrapArguments (@('--yes', '--update') + $args)
 Write-Host 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'

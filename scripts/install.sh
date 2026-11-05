@@ -13,13 +13,6 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 # Platform configs must be selected even before --from has cloned .miserc.toml.
 export MISE_AUTO_ENV=true
 
-if [ "$(uname -s)" = Linux ] && grep -qi microsoft /proc/version; then
-  case ",${MISE_ENV:-}," in
-    *,wsl,*) ;;
-    *) MISE_ENV="${MISE_ENV:+$MISE_ENV,}wsl"; export MISE_ENV ;;
-  esac
-fi
-
 as_root() {
   if [ "$(id -u)" -eq 0 ]; then
     "$@"
@@ -67,6 +60,35 @@ if ! command -v mise >/dev/null 2>&1 ||
   curl -fsSL https://mise.run -o "$installer"
   MISE_INSTALL_PATH="$HOME/.local/bin/mise" sh "$installer"
   hash -r
+fi
+
+# Save defaults once; miserc.local.toml and explicit mise selections override them.
+machine_config="${MISE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/mise}/miserc.toml"
+if [ ! -e "$machine_config" ]; then
+  selected='[]'
+  case "$(uname -s)" in
+    Darwin) selected='["desktop"]' ;;
+    Linux)
+      if [ -n "${WSL_INTEROP:-}${WSL_DISTRO_NAME:-}" ] || grep -qi microsoft /proc/version; then
+        selected='["wsl"]'
+      elif [ -e /.dockerenv ] || [ -e /run/.containerenv ] || [ -n "${container:-}" ]; then
+        selected='[]'
+      elif [ "${XDG_SESSION_TYPE:-}" = x11 ] || [ "${XDG_SESSION_TYPE:-}" = wayland ] ||
+           [ -n "${XDG_CURRENT_DESKTOP:-}" ] || [ -e /etc/systemd/system/display-manager.service ]; then
+        selected='["desktop"]'
+      else
+        # Installed sessions also identify desktops when this runs over SSH.
+        for session in /usr/share/xsessions/*.desktop /usr/share/wayland-sessions/*.desktop; do
+          if [ -f "$session" ]; then
+            selected='["desktop"]'
+            break
+          fi
+        done
+      fi
+      ;;
+  esac
+  mkdir -p "$(dirname "$machine_config")"
+  printf 'env = %s\n' "$selected" > "$machine_config"
 fi
 
 if [ -n "$source_directory" ]; then
