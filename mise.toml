@@ -9,6 +9,7 @@ include = [
 ]
 
 [vars]
+dotfiles_checkout = "{{ config_root }}"
 home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
 is_wsl = "false"
 
@@ -38,6 +39,7 @@ exclude = [
 ]
 
 [dotfile_groups.common.entries]
+"~/.config/mise/conf.d/dotfiles.toml" = { mode = "template" }
 "~/.gitconfig" = { mode = "template" }
 "~/.config/skillshare/config.yaml" = { mode = "template" }
 "~/.ssh" = { permissions = "0700" }

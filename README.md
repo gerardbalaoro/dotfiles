@@ -76,9 +76,17 @@ Keep small platform differences in a shared template to avoid competing copies.
 
 ## Updates
 
-To update a checkout created by remote bootstrap, rerun the remote bootstrap command above.
+After bootstrap, update from any directory:
 
-For a manually managed checkout, pull changes before provisioning:
+```sh
+mise run dotfiles:update
+```
+
+The task pulls the checkout it was deployed from and reapplies bootstrap through 1Password.
+Sign in to 1Password before running it.
+It works with remote bootstrap checkouts and manual clones.
+
+On existing machines, install the task once from the dotfiles checkout:
 
 ```sh
 git pull --ff-only
@@ -86,7 +94,7 @@ mise exec -- fnox exec --only 'DOTFILES_*' -- mise bootstrap --update
 ```
 
 Bootstrap installs missing packages and tools.
-Add `--upgrade` to upgrade managed tools and native packages.
+To upgrade managed tools and native packages, run the checkout command with `--upgrade` added.
 On macOS, run `brew upgrade` separately.
 
 ## Dotfile Changes
