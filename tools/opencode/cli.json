@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "animations": true,
+  "diffs": {
+    "wrap": "word"
+  },
+  "scroll": {
+    "acceleration": true
+  },
+  "session": {
+    "grouping": "auto",
+    "image_preview": true,
+    "scrollbar": false,
+    "sidebar": "auto",
+    "thinking": "hide",
+    "verbosity": "low"
+  },
+  "tabs": {
+    "layout": "horizontal",
+    "mode": "auto"
+  },
+  "theme": {
+    "name": "carbonfox"
+  }
+}

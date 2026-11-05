@@ -48,6 +48,8 @@ exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
 "~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }
 "~/.config/git/config" = { source = "tools/git/config.tera", mode = "template" }
 "~/.config/oh-my-posh/main.omp.json" = { source = "tools/oh-my-posh/main.omp.json", mode = "copy" }
+"~/.config/opencode/cli.json/shared" = { source = "tools/opencode/cli.json", merge = true }
+"~/.config/opencode/opencode.json/shared" = { source = "tools/opencode/opencode.json", merge = true }
 "~/.ssh" = { permissions = "0700" }
 "~/.ssh/config" = { source = "tools/ssh/config.tera", mode = "template", permissions = "0600" }
 "~/.ssh/authorized_keys" = { source = "tools/ssh/authorized_keys.tera", mode = "template", permissions = "0600" }
