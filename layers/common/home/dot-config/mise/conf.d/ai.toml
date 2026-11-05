@@ -5,6 +5,10 @@
 "npm:agent-browser" = { version = "latest", allow_builds = true }
 "npm:ctx7" = { version = "latest", allow_builds = true }
 
+[tools.claude]
+version = "latest"
+minimum_release_age = "0s"
+
 [tools.codex]
 version = "latest"
 minimum_release_age = "0s"
