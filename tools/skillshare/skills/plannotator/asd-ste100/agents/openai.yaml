@@ -1,0 +1,7 @@
+interface:
+  display_name: "ASD-STE100"
+  short_description: "Write technical text with ASD-STE100 rules"
+  default_prompt: "Use $asd-ste100 to write or rewrite this technical text with ASD-STE100 rules."
+
+policy:
+  allow_implicit_invocation: true
