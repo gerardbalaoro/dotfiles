@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+/bin/launchctl setenv PATH {{ (vars.mise_shims ~ ":" ~ vars.mise_bin_dir ~ ":" ~ vars.home ~ "/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin") | quote }}

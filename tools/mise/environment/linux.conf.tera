@@ -1,0 +1,1 @@
+PATH={{ vars.mise_shims }}:{{ vars.mise_bin_dir }}:{{ vars.home }}/.local/bin:${PATH}

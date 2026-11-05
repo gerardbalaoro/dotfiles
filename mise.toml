@@ -12,6 +12,8 @@ include = [
 dotfiles_checkout = "{{ config_root }}"
 home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
 is_wsl = "false"
+mise_shims = "{% if env.MISE_SHIMS_DIR is defined %}{{ env.MISE_SHIMS_DIR }}{% elif env.MISE_DATA_DIR is defined %}{{ env.MISE_DATA_DIR }}/shims{% else %}{{ xdg_data_home }}/mise/shims{% endif %}"
+mise_bin_dir = "{{ mise_bin | dirname }}"
 
 [settings]
 minimum_release_age = "1d"

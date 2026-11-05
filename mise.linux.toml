@@ -1,5 +1,8 @@
 include = ["environments/linux/packages.toml"]
 
+[dotfiles]
+"~/.config/environment.d/60-mise.conf" = { source = "tools/mise/environment/linux.conf.tera", mode = "template" }
+
 [bootstrap.hooks]
 post-packages = "bash {{ config_root | quote }}/environments/linux/packages.sh{% if vars.is_wsl == 'true' %} --wsl{% endif %}"
 

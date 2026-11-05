@@ -1,3 +1,11 @@
 [bootstrap.hooks]
 # The Homebrew CLI supports both Intel and Apple Silicon Macs.
 pre-packages = "bash {{ config_root | quote }}/environments/macos/packages.sh"
+
+[dotfiles]
+"~/.local/bin/mise-session-path" = { source = "tools/mise/environment/macos-path.sh.tera", mode = "template", permissions = "0700" }
+
+[bootstrap.macos.launchd.agents.mise-session-path]
+program = "~/.local/bin/mise-session-path"
+run_at_load = true
+kickstart = true
