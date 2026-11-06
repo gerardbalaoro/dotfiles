@@ -29,7 +29,7 @@ root = "{{ config_root }}"
 root = "tools/mise"
 target = "~/.config/mise"
 mode = "copy"
-exclude = ["*.tera", "mise.lock"]
+exclude = ["*.tera", "mise.lock", "config.toml"]
 
 [dotfile_groups.mise.entries]
 "~/.config/mise/conf.d/dotfiles.toml" = { mode = "template" }
@@ -45,6 +45,7 @@ exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
 "~/.config/skillshare/config.yaml" = { mode = "template" }
 
 [dotfiles]
+"~/.config/mise/config.toml/shared" = { source = "tools/mise/config.toml", merge = true }
 "~/.claude/settings.json/shared" = { source = "tools/claude/settings.json", merge = true }
 "~/.claude/tools/statusline" = { source = "tools/claude/tools/statusline", mode = "copy" }
 "~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }
