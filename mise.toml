@@ -45,6 +45,8 @@ exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
 "~/.config/skillshare/config.yaml" = { mode = "template" }
 
 [dotfiles]
+"~/.claude/settings.json/shared" = { source = "tools/claude/settings.json", merge = true }
+"~/.claude/tools/statusline" = { source = "tools/claude/tools/statusline", mode = "copy" }
 "~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }
 "~/.config/git/config" = { source = "tools/git/config.tera", mode = "template" }
 "~/.config/oh-my-posh/main.omp.json" = { source = "tools/oh-my-posh/main.omp.json", mode = "copy" }
