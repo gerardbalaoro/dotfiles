@@ -4,6 +4,8 @@
     "claude-agent": {
       "models": {
         "claude-fable-5": { "disabled": true },
+        "claude-fable-5-1": { "disabled": true },
+        "claude-fable-5-2": { "disabled": false },
         "claude-haiku-4-5-20251001": { "disabled": true },
         "claude-opus-4-6": { "disabled": true },
         "claude-opus-4-7": { "disabled": true },
