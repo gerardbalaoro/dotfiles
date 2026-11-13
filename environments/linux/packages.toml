@@ -32,7 +32,7 @@ git-core = { ppa = "git-core/ppa" }
 "dnf:unzip" = { version = "latest", os = "linux" }
 "dnf:git" = { version = "latest", os = "linux" }
 "dnf:curl" = { version = "latest", os = "linux" }
-"dnf:wget" = { version = "latest", os = "linux" }
+"dnf:wget2-wget" = { version = "latest", os = "linux" }
 "dnf:tmux" = { version = "latest", os = "linux" }
 "dnf:zoxide" = { version = "latest", os = "linux" }
 "dnf:fzf" = { version = "latest", os = "linux" }
