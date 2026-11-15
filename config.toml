@@ -9,7 +9,8 @@ include = [
 ]
 
 [vars]
-dotfiles_checkout = "{{ config_source | canonicalize | dirname }}"
+# PowerShell 5.1 requires ordinary drive or UNC paths, without the verbatim prefix.
+dotfiles_checkout = '''{{ config_source | canonicalize | dirname | replace(from='\\', to='/') | replace(from='//?/UNC/', to='//') | replace(from='//?/', to='') }}'''
 home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
 is_wsl = "false"
 mise_shims = "{% if env.MISE_SHIMS_DIR is defined %}{{ env.MISE_SHIMS_DIR }}{% elif env.MISE_DATA_DIR is defined %}{{ env.MISE_DATA_DIR }}/shims{% else %}{{ xdg_data_home }}/mise/shims{% endif %}"
@@ -23,7 +24,7 @@ package_manager = "aube"
 
 # Settings render before vars; keep this path expression aligned with dotfiles_checkout.
 [settings.dotfiles]
-root = "{{ config_source | canonicalize | dirname }}"
+root = '''{{ config_source | canonicalize | dirname | replace(from='\\', to='/') | replace(from='//?/UNC/', to='//') | replace(from='//?/', to='') }}'''
 
 [dotfile_groups.skillshare]
 root = "tools/skillshare"
