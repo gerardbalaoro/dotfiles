@@ -5,6 +5,7 @@
 "npm:agent-browser" = { version = "latest", allow_builds = true }
 "npm:agent-desktop" = { version = "latest", allow_builds = true }
 "npm:ctx7" = { version = "latest", allow_builds = true }
+"npm:@opencode/browse" = { version = "latest", minimum_release_age = "0s", allow_builds = true }
 
 [tools.claude]
 version = "latest"
