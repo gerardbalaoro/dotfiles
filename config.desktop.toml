@@ -9,7 +9,7 @@
 "winget:LesFerch.WinSetView" = { version = "latest", os = "windows" }
 "winget:Microsoft.WindowsTerminal" = { version = "latest", os = "windows" }
 "winget:Microsoft.VisualStudioCode" = { version = "latest", os = "windows" }
-"winget:SST.OpenCodeDesktop" = { version = "latest", os = "windows" }
+"winget:Anomaly.OpenCode.Desktop" = { version = "latest", os = "windows" }
 
 [dotfiles]
 "~/.config/ghostty" = { source = "tools/ghostty", mode = "copy", variants = [{ os = "macos" }] }
