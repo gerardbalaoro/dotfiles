@@ -7,5 +7,6 @@
 "~/.zprofile" = { mode = "absent" }
 
 [tasks."setup:unix"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Generate Bash and Zsh integrations"
 run = "sh tools/shell/setup.sh"

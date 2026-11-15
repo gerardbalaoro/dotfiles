@@ -7,9 +7,10 @@ include = ["environments/windows/packages.toml"]
 
 [bootstrap.hooks]
 # Native launchers otherwise pass PowerShell 7's module paths to Windows PowerShell.
-post-packages = 'set "PSModulePath=" && powershell -NoProfile -ExecutionPolicy Bypass -File "{{ config_root }}/environments/windows/packages.ps1"'
+post-packages = 'set "PSModulePath=" && powershell -NoProfile -ExecutionPolicy Bypass -File "{{ vars.dotfiles_checkout }}/environments/windows/packages.ps1"'
 
 [tasks."setup:windows"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Configure Windows tool shims"
 env = { PSModulePath = false }
 run = "powershell -NoProfile -ExecutionPolicy Bypass -File environments/windows/setup.ps1"

@@ -16,12 +16,14 @@
 "~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" = { source = "tools/windows-terminal/settings.json", mode = "copy", variants = [{ os = "windows" }] }
 
 [tasks."setup:fonts"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Install Oh My Posh fonts"
 run = "bash tools/oh-my-posh/setup.sh"
 run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File tools/oh-my-posh/setup.ps1"
 env = { PSModulePath = false }
 
 [tasks."setup:desktop"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Apply desktop preferences and applications"
 run = []
 run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File environments/windows/desktop.ps1"

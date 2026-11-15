@@ -1,0 +1,14 @@
+# Deploy standalone global configuration without connecting the checkout.
+# Tool bundles copy ordinary files; templates have explicit targets.
+[dotfile_groups.mise]
+root = "tools/mise"
+target = "~/.config/mise"
+mode = "copy"
+exclude = ["*.tera", "mise.lock", "config.toml"]
+
+[dotfile_groups.mise.entries]
+"~/.config/mise/conf.d/dotfiles.toml" = { mode = "template" }
+
+
+[dotfiles]
+"~/.config/mise/config.toml/shared" = { source = "tools/mise/config.toml", merge = true }

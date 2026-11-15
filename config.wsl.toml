@@ -2,9 +2,10 @@
 is_wsl = "true"
 
 [env]
-_.path = ["{{ config_root }}/environments/wsl/bin"]
+_.path = ["{{ vars.dotfiles_checkout }}/environments/wsl/bin"]
 
 [tasks."setup:wsl"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Configure Windows interoperability and WSL Hello sudo"
 depends = ["setup:linux"]
 # Enrollment requires path selection and Windows Hello authentication.

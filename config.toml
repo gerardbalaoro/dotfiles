@@ -1,0 +1,60 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+min_version = "2026.11.7"
+
+# Shared tool declarations are loaded by project and global configuration.
+include = [
+  "tools/mise/conf.d/dev.toml",
+  "tools/mise/conf.d/ai.toml",
+  "tools/mise/conf.d/utils.toml",
+]
+
+[vars]
+dotfiles_checkout = "{{ config_source | canonicalize | dirname }}"
+home = "{% if os() == 'windows' %}{{ env.USERPROFILE | replace(from='\\\\', to='/') }}{% else %}{{ env.HOME }}{% endif %}"
+is_wsl = "false"
+mise_shims = "{% if env.MISE_SHIMS_DIR is defined %}{{ env.MISE_SHIMS_DIR }}{% elif env.MISE_DATA_DIR is defined %}{{ env.MISE_DATA_DIR }}/shims{% else %}{{ xdg_data_home }}/mise/shims{% endif %}"
+mise_bin_dir = "{{ mise_bin | dirname }}"
+
+[settings]
+minimum_release_age = "1d"
+
+[settings.npm]
+package_manager = "aube"
+
+# Settings render before vars; keep this path expression aligned with dotfiles_checkout.
+[settings.dotfiles]
+root = "{{ config_source | canonicalize | dirname }}"
+
+[dotfile_groups.skillshare]
+root = "tools/skillshare"
+target = "~/.config/skillshare"
+mode = "copy"
+dot_prefix = true
+exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
+
+[dotfile_groups.skillshare.entries]
+"~/.config/skillshare/config.yaml" = { mode = "template" }
+
+[dotfiles]
+"~/.claude/settings.json/shared" = { source = "tools/claude/settings.json", merge = true }
+"~/.claude/tools/statusline" = { source = "tools/claude/tools/statusline", mode = "copy" }
+"~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }
+"~/.config/git/config" = { source = "tools/git/config.tera", mode = "template" }
+"~/.config/oh-my-posh/main.omp.json" = { source = "tools/oh-my-posh/main.omp.json", mode = "copy" }
+"~/.config/opencode/cli.json/shared" = { source = "tools/opencode/cli.json", merge = true }
+"~/.config/opencode/opencode.jsonc/shared" = { source = "tools/opencode/opencode.json", merge = true }
+"~/.config/opencode/opencode.json" = { mode = "absent" }
+"~/.ssh" = { permissions = "0700" }
+"~/.ssh/config" = { source = "tools/ssh/config.tera", mode = "template", permissions = "0600" }
+"~/.ssh/authorized_keys" = { source = "tools/ssh/authorized_keys.tera", mode = "template", permissions = "0600" }
+
+[tasks.bootstrap]
+description = "Run setup for the selected machine environments"
+depends = ["setup:*"]
+
+[tasks."dotfiles:identity"]
+description = "Restore Git identity and SSH keys through fnox"
+dir = "{{ vars.dotfiles_checkout }}"
+raw = true
+env = { MISE_CONFIG_DIR = "{{ vars.dotfiles_checkout }}" }
+run = 'mise exec -- fnox exec --only "DOTFILES_*" -- mise -E identity dot apply ~/.config/git/identity ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub ~/.ssh/allowed_signers'

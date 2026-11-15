@@ -1,14 +1,8 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
-[tasks."dotfiles:update"]
-description = "Pull and apply the latest dotfiles checkout"
-dir = '''{{ vars.dotfiles_checkout }}'''
-raw = true
-run = "sh scripts/update.sh"
-run_windows = "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/update.ps1"
-
 [tasks."dotfiles:identity"]
 description = "Restore Git identity and SSH keys through fnox"
 dir = '''{{ vars.dotfiles_checkout }}'''
 raw = true
+env = { MISE_CONFIG_DIR = "{{ vars.dotfiles_checkout }}" }
 run = '''mise exec -- fnox exec --only "DOTFILES_*" -- mise -E identity dot apply ~/.config/git/identity ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub ~/.ssh/allowed_signers'''

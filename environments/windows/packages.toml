@@ -2,7 +2,7 @@
 
 [bootstrap.packages]
 
-# Windows CLI prerequisites. GUI applications are selected by mise.desktop.toml.
+# Windows CLI prerequisites. GUI applications are selected by config.desktop.toml.
 "winget:chrisant996.Clink" = { version = "latest", os = "windows" }
 "winget:AgileBits.1Password.CLI" = { version = "latest", os = "windows" }
 "winget:Git.Git" = { version = "latest", os = "windows" }

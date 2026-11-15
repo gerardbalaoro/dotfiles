@@ -4,9 +4,10 @@ include = ["environments/linux/packages.toml"]
 "~/.config/environment.d/60-mise.conf" = { source = "tools/mise/environment/linux.conf.tera", mode = "template" }
 
 [bootstrap.hooks]
-post-packages = "bash {{ config_root | quote }}/environments/linux/packages.sh{% if vars.is_wsl == 'true' %} --wsl{% endif %}"
+post-packages = "bash {{ vars.dotfiles_checkout | quote }}/environments/linux/packages.sh{% if vars.is_wsl == 'true' %} --wsl{% endif %}"
 
 [tasks."setup:linux"]
+dir = "{{ vars.dotfiles_checkout }}"
 description = "Configure the Linux login shell"
 depends = ["setup:unix"]
 run = "bash environments/linux/setup.sh"
