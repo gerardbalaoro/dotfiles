@@ -112,7 +112,7 @@ def main():
             assert not (home / ".caller-probe").exists(), output
             assert (config / "conf.d/dotfiles.toml").exists() == (mode == "once")
             output = run(["mise", "tasks", "ls"], isolated, home)
-            assert "dotfiles:identity" in output, output
+            assert "setup:identity" in output, output
             assert "dotfiles:update" not in output, output
             if mode != "once":
                 run(["mise", "bootstrap", "--update", "--dry-run"], isolated, home)

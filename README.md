@@ -58,7 +58,7 @@ On WSL, install the Windows 1Password app and CLI, with `op.exe` available on PA
 Restore identity before committing or using SSH authentication:
 
 ```sh
-mise run dotfiles:identity
+mise run setup:identity
 ```
 
 Ordinary updates preserve restored identity files and keys.

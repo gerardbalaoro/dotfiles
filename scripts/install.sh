@@ -151,4 +151,4 @@ else
   cp "$machine_config" "$consumer_directory/miserc.local.toml"
   MISE_CONFIG_DIR="$consumer_directory" mise -C "$consumer_directory" -E once bootstrap --yes "$@"
 fi
-echo 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'
+echo 'Setup complete. Open a new terminal, then run mise run setup:identity to restore Git identity and SSH keys.'

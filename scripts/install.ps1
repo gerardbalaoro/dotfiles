@@ -137,7 +137,7 @@ try {
         & mise -C $runDirectory bootstrap --from $repositoryUrl --from-dir $consumerDirectory --config-dir . --yes --update @BootstrapArguments
     }
     if ($LASTEXITCODE -ne 0) { throw 'Bootstrap failed' }
-    Write-Host 'Setup complete. Open a new terminal, then run mise run dotfiles:identity to restore Git identity and SSH keys.'
+    Write-Host 'Setup complete. Open a new terminal, then run mise run setup:identity to restore Git identity and SSH keys.'
 
 } finally {
     Remove-Item -LiteralPath $runDirectory -Recurse -Force

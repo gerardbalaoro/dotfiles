@@ -1,6 +1,6 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
-[tasks."dotfiles:identity"]
+[tasks."setup:identity"]
 description = "Restore Git identity and SSH keys through fnox"
 dir = '''{{ vars.dotfiles_checkout }}'''
 raw = true

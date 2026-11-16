@@ -42,9 +42,17 @@ root = '''{{ config_source | canonicalize | dirname | replace(from='\\', to='/')
 
 [tasks.bootstrap]
 description = "Run setup for the selected machine environments"
-depends = ["setup:*"]
+# Identity restoration needs secrets and remains an explicit operation.
+depends = [
+  { task = "setup:unix", optional = true },
+  { task = "setup:linux", optional = true },
+  { task = "setup:wsl", optional = true },
+  { task = "setup:windows", optional = true },
+  { task = "setup:fonts", optional = true },
+  { task = "setup:desktop", optional = true },
+]
 
-[tasks."dotfiles:identity"]
+[tasks."setup:identity"]
 description = "Restore Git identity and SSH keys through fnox"
 dir = "{{ vars.dotfiles_checkout }}"
 raw = true
