@@ -1,7 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [tools]
-"github:runkids/skillshare" = { version = "latest" }
+"npm:agentsrc" = { version = "latest", minimum_release_age = "0s", allow_builds = true }
 "npm:agent-browser" = { version = "latest", allow_builds = true }
 "npm:agent-desktop" = { version = "latest", allow_builds = true }
 "npm:ctx7" = { version = "latest", allow_builds = true }
@@ -23,3 +23,7 @@ minimum_release_age = "0s"
 [tools."npm:t3"]
 version = "nightly"
 minimum_release_age = "0s"
+
+[bootstrap.hooks.final]
+description = "Sync shared agent skills and MCP configuration"
+run = "mise exec -- arc sync -g -y"

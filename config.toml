@@ -26,17 +26,8 @@ package_manager = "aube"
 [settings.dotfiles]
 root = '''{{ config_source | canonicalize | dirname | replace(from='\\', to='/') | replace(from='//?/UNC/', to='//') | replace(from='//?/', to='') }}'''
 
-[dotfile_groups.skillshare]
-root = "tools/skillshare"
-target = "~/.config/skillshare"
-mode = "copy"
-dot_prefix = true
-exclude = ["*.tera", ".gitkeep", "node_modules", ".git", "__pycache__", "*.pyc"]
-
-[dotfile_groups.skillshare.entries]
-"~/.config/skillshare/config.yaml" = { mode = "template" }
-
 [dotfiles]
+"~/.agents/agents.toml" = { source = "tools/agents/agents.toml", mode = "copy" }
 "~/.claude/settings.json/shared" = { source = "tools/claude/settings.json", merge = true }
 "~/.claude/tools/statusline" = { source = "tools/claude/tools/statusline", mode = "copy" }
 "~/.agents/AGENTS.md" = { source = "tools/agents/AGENTS.md", mode = "copy" }

@@ -1,0 +1,11 @@
+agents = ["claude-code", "codex", "opencode"]
+
+[skills]
+git-conventions = { source = "gerardbalaoro/skills", path = "skills/engineering/git-conventions", ref = "15b263343c93a1aa3a5a9d4376350e0484f683ec" }
+handoff = { source = "gerardbalaoro/skills", path = "skills/general/handoff", ref = "15b263343c93a1aa3a5a9d4376350e0484f683ec" }
+writing-documentation = { source = "gerardbalaoro/skills", path = "skills/engineering/writing-documentation", ref = "15b263343c93a1aa3a5a9d4376350e0484f683ec" }
+diagnosing-bugs = { source = "mattpocock/skills", path = "skills/engineering/diagnosing-bugs", ref = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d" }
+grilling = { source = "mattpocock/skills", path = "skills/productivity/grilling", ref = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d" }
+writing-for-agents = { source = "mattpocock/skills", path = "skills/productivity/writing-for-agents", ref = "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d" }
+asd-ste100 = { source = "plannotator/write-better", path = "skills/asd-ste100", ref = "8f0ed399053508e3f4abda0a58b91c5393f9c871" }
+write-better = { source = "plannotator/write-better", path = "skills/write-better", ref = "8f0ed399053508e3f4abda0a58b91c5393f9c871" }

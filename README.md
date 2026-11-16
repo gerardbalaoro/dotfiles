@@ -63,6 +63,17 @@ mise run dotfiles:identity
 
 Ordinary updates preserve restored identity files and keys.
 
+## Agent Skills
+
+[tools/agents/agents.toml](tools/agents/agents.toml) declares shared skills for Claude Code, Codex, and OpenCode.
+Sources use pinned Git revisions; skill contents are downloaded by agentsrc rather than stored here.
+Change a manifest revision, commit, and push to publish a skill update.
+
+Bootstrap installs agentsrc through mise, then runs `arc sync -g -y` in its final hook.
+To sync separately, run `mise exec -- arc sync -g -y` from outside development checkouts.
+
+Legacy skillshare migration is manual. The manifest currently declares no MCP servers.
+
 ## Updates
 
 From any directory:
