@@ -6,6 +6,7 @@
 "npm:agent-desktop" = { version = "latest", allow_builds = true }
 "npm:ctx7" = { version = "latest", allow_builds = true }
 "npm:@opencode/browse" = { version = "latest", minimum_release_age = "0s", allow_builds = true }
+"npm:@gblab/skm" = { version = "latest", minimum_release_age = "0s", allow_builds = true }
 
 [tools.claude]
 version = "latest"
@@ -18,10 +19,6 @@ minimum_release_age = "0s"
 [tools.opencode]
 version = "latest"
 allow_builds = true
-minimum_release_age = "0s"
-
-[tools."npm:t3"]
-version = "nightly"
 minimum_release_age = "0s"
 
 [bootstrap.hooks.final]
