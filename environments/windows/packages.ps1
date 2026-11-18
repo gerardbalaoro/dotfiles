@@ -1,11 +1,6 @@
 $ErrorActionPreference = 'Stop'
 Import-Module (Join-Path $PSScriptRoot 'install-package.psm1') -Force
 
-if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
-    Write-Output "Installing Scoop"
-    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-}
-
 if (-not (Get-Command "oh-my-posh" -ErrorAction SilentlyContinue)) {
     $InstallLocation = "$env:LOCALAPPDATA\Programs\oh-my-posh"
 
