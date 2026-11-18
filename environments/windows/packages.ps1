@@ -3,7 +3,6 @@ Import-Module (Join-Path $PSScriptRoot 'install-package.psm1') -Force
 
 if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
     Write-Output "Installing Scoop"
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
