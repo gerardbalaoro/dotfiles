@@ -6,7 +6,7 @@ bun = "latest"
 deno = "latest"
 node = "26"
 pnpm = "latest"
-viteplus = "latest"
+viteplus = { version = "latest", trust_policy_excludes = ["tsrs"] }
 uv = { version = "latest", post_install = "uv python install --default" }
 
 [env]
