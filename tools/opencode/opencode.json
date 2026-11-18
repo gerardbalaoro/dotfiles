@@ -32,7 +32,13 @@
         "gpt-6-sol-fast": { "disabled": true },
         "gpt-6.1-sol-fast": { "disabled": true },
         "gpt-6.1-sol-ultrafast": { "disabled": true },
-        "gpt-6.1-terra-fast": { "disabled": true }
+        "gpt-6.1-terra-fast": { "disabled": true },
+        "gpt-6.2-astra": { "disabled": false },
+        "gpt-6.2-astra-fast": { "disabled": true },
+        "gpt-6.2-astra-ultrafast": { "disabled": true },
+        "gpt-6.2-sol": { "disabled": false },
+        "gpt-6.2-sol-fast": { "disabled": true },
+        "gpt-6.2-sol-ultrafast": { "disabled": true }
       }
     },
     "opencode": {
